@@ -1,7 +1,0 @@
-#Fri Oct 28 22:20:38 GMT-03:00 2016
-base.0=C\:\\Users\\Douglas\\AndroidStudioProjects\\MercadoBarato\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run_03435c10ff49285c657bddf21b5ea55869ff3b9d
-renamed.1=classes.dex
-renamed.0=classes2.dex
-file.1=C\:\\Users\\Douglas\\AndroidStudioProjects\\MercadoBarato\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run-bootstrap_5df680b24a460550ca6c02ab11debbea5b890ce9\\classes.dex
-base.1=C\:\\Users\\Douglas\\AndroidStudioProjects\\MercadoBarato\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run-bootstrap_5df680b24a460550ca6c02ab11debbea5b890ce9
-file.0=C\:\\Users\\Douglas\\AndroidStudioProjects\\MercadoBarato\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run_03435c10ff49285c657bddf21b5ea55869ff3b9d\\classes.dex
