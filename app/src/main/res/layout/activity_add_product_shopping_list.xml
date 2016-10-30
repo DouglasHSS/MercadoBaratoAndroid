@@ -16,8 +16,8 @@
         android:id="@+id/btn_scan_barcode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/ic_action_name"
-        android:drawableStart="@drawable/ic_action_name"
+        android:drawableLeft="@drawable/ic_menu_manage"
+        android:drawableStart="@drawable/ic_menu_manage"
         android:text="@string/scan_barcode" />
 
     <EditText
