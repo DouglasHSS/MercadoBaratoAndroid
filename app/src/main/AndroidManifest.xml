@@ -43,6 +43,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.br.cdr.mercadobarato.MainActivity" />
         </activity>
+        <activity
+            android:name=".NavigationMenuActivity"
+            android:label="@string/title_activity_navigation_menu"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
