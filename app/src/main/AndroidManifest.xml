@@ -39,7 +39,7 @@
 
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps">
+            android:label="@string/checkin">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.br.cdr.mercadobarato.MainActivity" />
