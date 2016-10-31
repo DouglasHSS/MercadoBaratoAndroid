@@ -8,10 +8,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 
+import com.beardedhen.androidbootstrap.BootstrapButton;
+
 public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
-    private Button login;
-    private Button signUp;
+    private BootstrapButton login;
+    private BootstrapButton signUp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,16 +23,16 @@ public class MainActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.main_bar);
         setSupportActionBar(toolbar);
 
-        login  = (Button) findViewById(R.id.button_login);
+        login  = (BootstrapButton) findViewById(R.id.button_login);
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(MainActivity.this,MapsActivity.class);
+                Intent intent=new Intent(MainActivity.this,AddProductActivity.class);
                 startActivity(intent);
             }
         });
 
-        signUp = (Button) findViewById(R.id.btn_signup);
+        signUp = (BootstrapButton) findViewById(R.id.btn_signup);
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

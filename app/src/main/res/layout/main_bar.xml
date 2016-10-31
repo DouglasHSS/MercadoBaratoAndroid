@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/action_bar_logo"
+    android:layout_height="100dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/azul_logo"
     android:textAlignment="center">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:paddingLeft="75dp"
+        android:paddingRight="75dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:src="@drawable/logo"
+        />
 
 
 </android.support.v7.widget.Toolbar>
