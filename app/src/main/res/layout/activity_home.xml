@@ -14,14 +14,18 @@
         android:orientation="horizontal"
         android:layout_weight="1" >
 
-        <Button
+        <ImageButton
+            android:id="@+id/button_map"
             android:layout_width="0dip"
             android:layout_height="match_parent"
+            android:src="@drawable/map_home_icon"
             android:layout_weight="1" />
 
-        <Button
+        <ImageButton
+            android:id="@+id/button_cart"
             android:layout_width="0dip"
             android:layout_height="match_parent"
+            android:src="@drawable/cart_home_icon"
             android:layout_weight="1"/>
     </LinearLayout>
 
@@ -31,12 +35,14 @@
         android:orientation="horizontal"
         android:layout_weight="1" >
 
-        <Button
+        <ImageButton
+            android:id="@+id/button_products"
             android:layout_width="0dip"
             android:layout_height="match_parent"
+            android:src="@drawable/grocery_home_icon"
             android:layout_weight="1" />
 
-        <Button
+        <ImageButton
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="1"/>
