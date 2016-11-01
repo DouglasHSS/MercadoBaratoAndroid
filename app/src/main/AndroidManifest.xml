@@ -48,7 +48,8 @@
             android:name=".NavigationMenuActivity"
             android:label="@string/title_activity_navigation_menu"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Register"></activity>
+        <activity android:name=".Register" />
+        <activity android:name=".HomeActivity"></activity>
     </application>
 
 </manifest>

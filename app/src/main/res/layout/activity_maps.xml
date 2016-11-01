@@ -15,38 +15,42 @@
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_weight="60"
+        android:layout_height="0dp"
         tools:context="com.br.cdr.mercadobarato.MapsActivity" />
-    
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_weight="20"
+        android:layout_height="0dp"
         android:background="@color/bootstrap_brand_secondary_fill">
 
         <com.beardedhen.androidbootstrap.BootstrapEditText
-            android:layout_width="200dp"
+            android:layout_width="300dp"
+            android:height="35dp"
             android:layout_height="wrap_content"
             app:bootstrapSize="md"
-            app:bootstrapBrand="info"/>
+            app:bootstrapBrand="info"
+            app:roundedCorners="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/checkin_place_name" />
 
         <com.beardedhen.androidbootstrap.BootstrapButton
-            android:id="@+id/btn_signup"
+            android:id="@+id/btn_checkin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="24dp"
             android:text="@string/checkin"
-            app:bootstrapBrand="danger"
+            app:bootstrapBrand="success"
             app:bootstrapSize="lg"
             app:buttonMode="regular"
             android:textAlignment="center"
             app:showOutline="false"
             app:roundedCorners="true"
-            android:layout_alignBaseline="@+id/button_login"
-            android:layout_alignBottom="@+id/button_login"
-            android:layout_toStartOf="@+id/button_login"
-            android:layout_marginEnd="13dp"
-            android:layout_centerInParent="true" />
-
+            android:layout_below="@+id/checkin_place_name"
+            android:layout_centerHorizontal="true" />
     </RelativeLayout>
 
 </LinearLayout>

@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(MainActivity.this,MapsActivity.class);
+                Intent intent=new Intent(MainActivity.this,HomeActivity.class);
                 startActivity(intent);
             }
         });
@@ -40,8 +40,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
 
     }
 }
