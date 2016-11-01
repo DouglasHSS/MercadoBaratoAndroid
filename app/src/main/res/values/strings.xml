@@ -5,7 +5,7 @@
     <string name="product_price">Product Price</string>
     <string name="product_description">Product Description</string>
     <string name="save_product">Save Product</string>
-    <string name="add_product_cart">Adicionar Produto à Lista de Compras</string>
+    <string name="add_product_cart">Add product to shopping list</string>
     <string name="checkin">Check-in</string>
     <string name="title_activity_navigation_menu">NavigationMenuActivity</string>
 
