@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">MercadoBarato</string>
+    <string name="app_name">Mercado Barato</string>
     <string name="scan_barcode">Scannear</string>
     <string name="product_code">Código de barra</string>
     <string name="product_price">Preço</string>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MercadoBarato</string>
+    <string name="app_name">Mercado Barato</string>
     <string name="scan_barcode">Scan Product</string>
     <string name="product_code">Product Code</string>
     <string name="product_price">Product Price</string>
@@ -20,4 +20,5 @@
     <string name="sign_up">Sign up</string>
     <string name="password">Password</string>
     <string name="create_account">Create Account</string>
+    <string name="userLoc">You are here!</string>
 </resources>

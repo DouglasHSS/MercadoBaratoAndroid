@@ -15,10 +15,10 @@
         android:layout_weight="1" >
 
         <ImageButton
-            android:id="@+id/button_map"
+            android:id="@+id/button_products"
             android:layout_width="0dip"
             android:layout_height="match_parent"
-            android:src="@drawable/map_home_icon"
+            android:src="@drawable/grocery_home_icon"
             android:layout_weight="1" />
 
         <ImageButton
@@ -36,15 +36,17 @@
         android:layout_weight="1" >
 
         <ImageButton
-            android:id="@+id/button_products"
+            android:id="@+id/button_listProducts"
             android:layout_width="0dip"
             android:layout_height="match_parent"
-            android:src="@drawable/grocery_home_icon"
+            android:src="@drawable/list_icon"
             android:layout_weight="1" />
 
         <ImageButton
+            android:id="@+id/app_info"
             android:layout_width="0dip"
             android:layout_height="match_parent"
+            android:src="@drawable/app_info_icon"
             android:layout_weight="1"/>
     </LinearLayout>
     <LinearLayout

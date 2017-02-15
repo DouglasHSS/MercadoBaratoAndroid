@@ -10,9 +10,10 @@ import android.widget.ImageButton;
 import com.beardedhen.androidbootstrap.BootstrapButton;
 
 public class HomeActivity extends AppCompatActivity {
-    private ImageButton map_button;
     private ImageButton products;
     private ImageButton chart;
+    private ImageButton info;
+    private ImageButton list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,14 +39,25 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        map_button  = (ImageButton) findViewById(R.id.button_map);
-        map_button.setOnClickListener(new View.OnClickListener() {
+        list  = (ImageButton) findViewById(R.id.button_listProducts);
+        list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(HomeActivity.this,MapsActivity.class);
+                Intent intent=new Intent(HomeActivity.this,ListProductsActivity.class);
                 startActivity(intent);
             }
         });
+
+        info  = (ImageButton) findViewById(R.id.app_info);
+        info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(HomeActivity.this,InfoActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
 
 
     }
