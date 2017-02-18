@@ -98,11 +98,11 @@ public class NavigationMenuActivity extends AppCompatActivity
         Class fragmentClass = null;
 
         if (itemId == R.id.nav_camera) {
-            // Handle the camera action
             fragmentClass = InfoActivity.class;
         } else if (itemId == R.id.nav_gallery) {
             fragmentClass = MapsActivity.class;
         } else if (itemId == R.id.nav_slideshow) {
+            fragmentClass = AddProductActivity.class;
 
         } else if (itemId == R.id.nav_manage) {
 
