@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">Mercado Barato</string>
     <string name="scan_barcode">Scannear</string>
-    <string name="product_code">Código de barra</string>
+    <string name="product_code">Código de barras</string>
     <string name="product_price">Preço</string>
     <string name="product_description">Descrição</string>
     <string name="save_product">Salvar</string>
@@ -11,7 +11,7 @@
     <string name="title_activity_navigation_menu">NavigationMenuActivity</string>
 
 
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Configurações</string>
     <string name="login">Login</string>
     <string name="sign_up">Cadastro</string>
     <string name="password">Senha</string>
@@ -19,4 +19,6 @@
     <string name="name">Nome</string>
     <string name="confirm_password">Confirmar Senha</string>
     <string name="register">Cadastrar</string>
+    <string name="perfil">Perfil</string>
+
 </resources>

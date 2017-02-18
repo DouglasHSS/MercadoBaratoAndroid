@@ -55,27 +55,6 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
         return view;
     }
 
-
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-////        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_maps);
-//        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-//        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-//                .findFragmentById(R.id.map);
-//        mapFragment.getMapAsync(this);
-//
-//        checkin  = (BootstrapButton) findViewById(R.id.btn_checkin);
-//        checkin.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent=new Intent(MapsActivity.this,HomeActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-//    }
-
-
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
@@ -117,16 +96,5 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
         }
 
     }
-
-
-
-//    public void openFragment() {
-//        HomeActivity fr = new HomeActivity();
-//        FragmentManager fm = getFragmentManager();
-//        FragmentTransaction fragmentTransaction = fm.beginTransaction();
-//        fragmentTransaction.replace(R.id.content_frame, fr);
-//        fragmentTransaction.commit();
-//    }
-
 
 }

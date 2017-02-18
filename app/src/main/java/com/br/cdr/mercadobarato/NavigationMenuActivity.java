@@ -40,7 +40,7 @@ public class NavigationMenuActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         //add this line to display menu1 when the activity is loaded
-        displaySelectedScreen(R.id.nav_gallery);
+        displaySelectedScreen(R.id.nav_checkin);
 
     }
 
@@ -98,11 +98,11 @@ public class NavigationMenuActivity extends AppCompatActivity
         Fragment fragment = null;
         Class fragmentClass = null;
 
-        if (itemId == R.id.nav_camera) {
-            fragmentClass = InfoActivity.class;
-        } else if (itemId == R.id.nav_gallery) {
+        if (itemId == R.id.nav_add_product_cart) {
+            fragmentClass = AddProductShoppingListActivity.class;
+        } else if (itemId == R.id.nav_checkin) {
             fragmentClass = MapsActivity.class;
-        } else if (itemId == R.id.nav_slideshow) {
+        } else if (itemId == R.id.nav_perfil) {
             fragmentClass = AddProductActivity.class;
 
         } else if (itemId == R.id.nav_manage) {
@@ -112,23 +112,10 @@ public class NavigationMenuActivity extends AppCompatActivity
         } else if (itemId == R.id.nav_send) {
 
         } else {
-            fragmentClass = ListProductsActivity.class;
+            fragmentClass = MapsActivity.class;
         }
 
         Utils.openFragment(fragmentClass, getSupportFragmentManager());
-
-//        try {
-//            fragment = (Fragment) fragmentClass.newInstance();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        //replacing the fragment
-//        if (fragment != null) {
-//            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-//            ft.replace(R.id.content_frame, fragment);
-//            ft.commit();
-//        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
