@@ -3,6 +3,8 @@ package com.br.cdr.mercadobarato;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,6 +14,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.google.android.gms.maps.OnMapReadyCallback;
+
+import static android.R.attr.id;
 
 public class NavigationMenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -23,15 +29,6 @@ public class NavigationMenuActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -40,6 +37,10 @@ public class NavigationMenuActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        //add this line to display menu1 when the activity is loaded
+        displaySelectedScreen(R.id.nav_gallery);
+
     }
 
     @Override
@@ -80,22 +81,55 @@ public class NavigationMenuActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        displaySelectedScreen(id);
+
+        item.setChecked(true);
+        // Set action bar title
+        setTitle(item.getTitle());
+        return true;
+
+    }
+
+
+    private void displaySelectedScreen(int itemId) {
+
+        //creating fragment object
+        Fragment fragment = null;
+        Class fragmentClass = null;
+
+        if (itemId == R.id.nav_camera) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+            fragmentClass = InfoActivity.class;
+        } else if (itemId == R.id.nav_gallery) {
+            fragmentClass = MapsActivity.class;
+        } else if (itemId == R.id.nav_slideshow) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (itemId == R.id.nav_manage) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (itemId == R.id.nav_share) {
 
-        } else if (id == R.id.nav_share) {
+        } else if (itemId == R.id.nav_send) {
 
-        } else if (id == R.id.nav_send) {
+        } else {
+            fragmentClass = ListProductsActivity.class;
+        }
 
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //replacing the fragment
+        if (fragment != null) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.content_frame, fragment);
+            ft.commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-        return true;
     }
+
+
 }
