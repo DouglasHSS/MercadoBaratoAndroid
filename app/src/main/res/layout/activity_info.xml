@@ -7,11 +7,6 @@
     android:layout_height="match_parent"
     tools:context="com.br.cdr.mercadobarato.InfoActivity">
 
-    <include android:id="@+id/main_bar"
-        layout="@layout/main_bar">
-    </include>
-
-   
 
 
 </RelativeLayout>

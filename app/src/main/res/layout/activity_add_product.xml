@@ -9,9 +9,6 @@
     tools:context="com.br.cdr.mercadobarato.AddProductActivity"
     android:weightSum="1">
 
-    <include
-        android:id="@+id/main_bar"
-        layout="@layout/main_bar"></include>
 
     <RelativeLayout
         android:layout_width="match_parent"

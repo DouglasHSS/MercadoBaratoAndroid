@@ -11,7 +11,7 @@
 
     <include
         android:id="@+id/main_bar"
-        layout="@layout/main_bar"></include>
+        layout="@layout/main_bar"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
