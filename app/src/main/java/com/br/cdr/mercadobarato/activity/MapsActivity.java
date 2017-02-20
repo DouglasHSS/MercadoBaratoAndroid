@@ -152,9 +152,13 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
         }
     }
 
+<<<<<<< HEAD:app/src/main/java/com/br/cdr/mercadobarato/activity/MapsActivity.java
 
 }
 
 
 
 
+=======
+}
+>>>>>>> 450a0e0cd433a75c49f1d44ab6962aa4458a3fa6:app/src/main/java/com/br/cdr/mercadobarato/MapsActivity.java

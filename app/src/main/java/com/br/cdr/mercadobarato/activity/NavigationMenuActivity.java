@@ -34,7 +34,11 @@ public class NavigationMenuActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         //add this line to display menu1 when the activity is loaded
+<<<<<<< HEAD:app/src/main/java/com/br/cdr/mercadobarato/activity/NavigationMenuActivity.java
         displaySelectedScreen(R.id.map_menu);
+=======
+        displaySelectedScreen(R.id.nav_checkin);
+>>>>>>> 450a0e0cd433a75c49f1d44ab6962aa4458a3fa6:app/src/main/java/com/br/cdr/mercadobarato/NavigationMenuActivity.java
 
     }
 
@@ -92,33 +96,28 @@ public class NavigationMenuActivity extends AppCompatActivity
         Fragment fragment = null;
         Class fragmentClass = null;
 
+<<<<<<< HEAD:app/src/main/java/com/br/cdr/mercadobarato/activity/NavigationMenuActivity.java
         if (itemId == R.id.map_menu) {
             fragmentClass = MapsActivity.class;
         } else if (itemId == R.id.list_menu) {
             fragmentClass = InfoActivity.class;
         } else if (itemId == R.id.products_menu) {
+=======
+        if (itemId == R.id.nav_add_product_cart) {
+            fragmentClass = AddProductShoppingListActivity.class;
+        } else if (itemId == R.id.nav_checkin) {
+            fragmentClass = MapsActivity.class;
+        } else if (itemId == R.id.nav_perfil) {
+>>>>>>> 450a0e0cd433a75c49f1d44ab6962aa4458a3fa6:app/src/main/java/com/br/cdr/mercadobarato/NavigationMenuActivity.java
             fragmentClass = AddProductActivity.class;
 
         } else if (itemId == R.id.profile) {
 
         } else {
-            fragmentClass = ListProductsActivity.class;
+            fragmentClass = MapsActivity.class;
         }
 
         Utils.openFragment(fragmentClass, getSupportFragmentManager());
-
-//        try {
-//            fragment = (Fragment) fragmentClass.newInstance();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        //replacing the fragment
-//        if (fragment != null) {
-//            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-//            ft.replace(R.id.content_frame, fragment);
-//            ft.commit();
-//        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

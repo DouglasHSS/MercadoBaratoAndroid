@@ -3,6 +3,7 @@
 
     <group android:checkableBehavior="single">
         <item
+<<<<<<< HEAD
             android:id="@+id/map_menu"
             android:icon="@android:drawable/ic_menu_mapmode"
             android:title="@string/mapMenu" />
@@ -14,10 +15,27 @@
             android:id="@+id/products_menu"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/productPrice" />
+=======
+            android:id="@+id/nav_checkin"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="@string/checkin" />
+        <item
+            android:id="@+id/nav_add_product_cart"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="@string/add_product_cart" />
+        <item
+            android:id="@+id/nav_perfil"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/perfil" />
+>>>>>>> 450a0e0cd433a75c49f1d44ab6962aa4458a3fa6
         <item
             android:id="@+id/profile"
             android:icon="@drawable/ic_menu_manage"
+<<<<<<< HEAD
             android:title="@string/profile" />
+=======
+            android:title="@string/action_settings" />
+>>>>>>> 450a0e0cd433a75c49f1d44ab6962aa4458a3fa6
     </group>
 
 
