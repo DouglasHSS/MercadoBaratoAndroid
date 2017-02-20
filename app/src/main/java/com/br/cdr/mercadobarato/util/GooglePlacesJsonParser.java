@@ -27,10 +27,11 @@ public class GooglePlacesJsonParser {
             JSONObject location;
             Double lat;
             Double lng;
-            SuperMarketWrapper superMarketWrapper = new SuperMarketWrapper();
+
 
 
             for (int i = 0; i<marketList.length();i++){
+                SuperMarketWrapper superMarketWrapper = new SuperMarketWrapper();
                 market = marketList.getJSONObject(i);
 
                 superMarketWrapper.setName(market.getString("name"));

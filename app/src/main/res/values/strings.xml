@@ -9,7 +9,7 @@
     <string name="checkin">Check-in</string>
     <string name="title_activity_navigation_menu">NavigationMenuActivity</string>
 
-    <string name="mapMenu">Map</string>
+    <string name="mapMenu">Check-in</string>
     <string name="listMenu">Grocery Lists</string>
     <string name="productPrice">Products Prices</string>
     <string name="profile">Profile</string>
