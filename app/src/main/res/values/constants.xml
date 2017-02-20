@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="google_places_key">AIzaSyCH0kAoRhLam7se09583UaYBZNT2Gych3k</string>
+    <string name="google_places_url">https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=</string>
+    <string name="google_places_result_json_key">results</string>
+    <string name="market_wrapper_key">marketWrapper</string>
+
+
+
+
+</resources>

@@ -6,7 +6,7 @@ android:id="@+id/activity_add_product_ship_list"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:orientation="vertical"
-tools:context="com.br.cdr.mercadobarato.AddProductShoppingListActivity"
+tools:context="com.br.cdr.mercadobarato.activity.AddProductShoppingListActivity"
 android:weightSum="1">
 
 <include

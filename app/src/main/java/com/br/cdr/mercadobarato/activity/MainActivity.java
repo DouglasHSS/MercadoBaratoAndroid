@@ -1,4 +1,4 @@
-package com.br.cdr.mercadobarato;
+package com.br.cdr.mercadobarato.activity;
 
 import android.content.Intent;
 import android.support.multidex.MultiDex;
@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.br.cdr.mercadobarato.R;
 
 public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;

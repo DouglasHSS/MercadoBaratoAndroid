@@ -5,7 +5,7 @@
     android:id="@+id/activity_register"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.br.cdr.mercadobarato.ListProductsActivity">
+    tools:context="com.br.cdr.mercadobarato.activity.ListProductsActivity">
 
     <include android:id="@+id/main_bar"
         layout="@layout/main_bar">

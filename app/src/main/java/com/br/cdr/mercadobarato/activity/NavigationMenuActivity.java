@@ -1,11 +1,7 @@
-package com.br.cdr.mercadobarato;
+package com.br.cdr.mercadobarato.activity;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -15,10 +11,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.br.cdr.mercadobarato.R;
 import com.br.cdr.mercadobarato.util.Utils;
-import com.google.android.gms.maps.OnMapReadyCallback;
-
-import static android.R.attr.id;
 
 public class NavigationMenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -40,7 +34,7 @@ public class NavigationMenuActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         //add this line to display menu1 when the activity is loaded
-        displaySelectedScreen(R.id.nav_gallery);
+        displaySelectedScreen(R.id.map_menu);
 
     }
 
@@ -98,18 +92,14 @@ public class NavigationMenuActivity extends AppCompatActivity
         Fragment fragment = null;
         Class fragmentClass = null;
 
-        if (itemId == R.id.nav_camera) {
-            fragmentClass = InfoActivity.class;
-        } else if (itemId == R.id.nav_gallery) {
+        if (itemId == R.id.map_menu) {
             fragmentClass = MapsActivity.class;
-        } else if (itemId == R.id.nav_slideshow) {
+        } else if (itemId == R.id.list_menu) {
+            fragmentClass = InfoActivity.class;
+        } else if (itemId == R.id.products_menu) {
             fragmentClass = AddProductActivity.class;
 
-        } else if (itemId == R.id.nav_manage) {
-
-        } else if (itemId == R.id.nav_share) {
-
-        } else if (itemId == R.id.nav_send) {
+        } else if (itemId == R.id.profile) {
 
         } else {
             fragmentClass = ListProductsActivity.class;

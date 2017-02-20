@@ -9,6 +9,17 @@
     <string name="checkin">Check-in</string>
     <string name="title_activity_navigation_menu">NavigationMenuActivity</string>
 
+    <string name="mapMenu">Map</string>
+    <string name="listMenu">Grocery Lists</string>
+    <string name="productPrice">Products Prices</string>
+    <string name="profile">Profile</string>
+
+    <string name="loading">Loading...</string>
+    <string name="waiting">Please Wait</string>
+    <string name="locationNotFound">Location Not found</string>
+    <string name="placesNotFound">No Super Market around you, please increase your range.</string>
+
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
