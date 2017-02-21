@@ -1,7 +1,9 @@
 package com.br.cdr.mercadobarato.activity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.support.multidex.MultiDex;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -9,8 +11,9 @@ import android.view.View;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.br.cdr.mercadobarato.R;
+import com.br.cdr.mercadobarato.util.ExitAppDialog;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ExitAppDialog.ExitListener{
     private Toolbar toolbar;
     private BootstrapButton login;
     private BootstrapButton signUp;
@@ -41,6 +44,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onExit() {
+        finish();
     }
 }
 

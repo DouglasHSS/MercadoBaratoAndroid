@@ -32,4 +32,5 @@
     <string name="password">Password</string>
     <string name="create_account">Create Account</string>
     <string name="userLoc">You are here!</string>
+    <string name="exit">Exit</string>
 </resources>
