@@ -4,8 +4,6 @@
     <string name="google_places_url">https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=</string>
     <string name="google_places_result_json_key">results</string>
     <string name="market_wrapper_key">marketWrapper</string>
-
-
-
+    <string name="mercado_barato_api">https://mercado-barato-api.herokuapp.com/</string>
 
 </resources>

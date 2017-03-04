@@ -6,54 +6,54 @@ package com.br.cdr.mercadobarato.model;
 
 public class UserWrapper {
 
-    private String mUsername;
-    private String mPassword;
-    private String mToken;
-    private String mFirstName;
-    private String mEmail;
+    private String username;
+    private String password;
+    private String token;
+    private String first_name;
+    private String email;
 
-    public String getUsername() {
-        return mUsername;
+    public String getEmail() {
+        return email;
     }
 
-    public UserWrapper setUsername(String mUsername) {
-        this.mUsername = mUsername;
+    public UserWrapper setEmail(String email) {
+        this.email = email;
         return this;
     }
 
-    public String getPassword() {
-        return mPassword;
+    public String getFirst_name() {
+        return first_name;
     }
 
-    public UserWrapper setPassword(String mPassword) {
-        this.mPassword = mPassword;
+    public UserWrapper setFirst_name(String first_name) {
+        this.first_name = first_name;
         return this;
     }
 
     public String getToken() {
-        return mToken;
+        return token;
     }
 
-    public UserWrapper setToken(String mToken) {
-        this.mToken = mToken;
+    public UserWrapper setToken(String token) {
+        this.token = token;
         return this;
     }
 
-    public String getFirstName() {
-        return mFirstName;
+    public String getPassword() {
+        return password;
     }
 
-    public UserWrapper setFirstName(String mFirstName) {
-        this.mFirstName = mFirstName;
+    public UserWrapper setPassword(String password) {
+        this.password = password;
         return this;
     }
 
-    public String getmEmail() {
-        return mEmail;
+    public String getUsername() {
+        return username;
     }
 
-    public UserWrapper setmEmail(String mEmail) {
-        this.mEmail = mEmail;
+    public UserWrapper setUsername(String username) {
+        this.username = username;
         return this;
     }
 }

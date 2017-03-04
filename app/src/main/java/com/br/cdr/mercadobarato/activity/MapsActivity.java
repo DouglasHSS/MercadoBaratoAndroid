@@ -40,7 +40,6 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
     private List<SuperMarketWrapper> mMarketList;
 
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -81,15 +80,12 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        if (ActivityCompat.checkSelfPermission(
-                getActivity(),
-                android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(getActivity(),
-                android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (checkPermission()) {
             ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         } else {
-            if (!mMap.isMyLocationEnabled())
+            if (!mMap.isMyLocationEnabled()) {
                 mMap.setMyLocationEnabled(true);
+            }
 
             LocationManager lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
             Location myLocation = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
@@ -104,53 +100,65 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
             if (myLocation != null) {
                 LatLng userLocation = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
                 mRange = 1000;
-                String url = new StringBuilder().append(getResources().getString(R.string.google_places_url))
-                        .append(myLocation.getLatitude()).append("%2C").append(myLocation.getLongitude()).append("&types=grocery_or_supermarket&radius=").append(mRange).append("&key=").
-                                append(getResources().getString(R.string.google_places_key)).toString();
+                String url = getResources().getString(R.string.google_places_url) +
+                        myLocation.getLatitude() + "%2C" +
+                        myLocation.getLongitude() +
+                        "&types=grocery_or_supermarket&radius=" +
+                        mRange + "&key=" +
+                        getResources().getString(R.string.google_places_key);
 
                 AsyncHttpClient client = new AsyncHttpClient();
 
-                client.get(url,
-                        new JsonHttpResponseHandler() {
-                            /**
-                             * verifica se a requisição obteve sucesso ou falha, em caso de sucesso
-                             * a listRestultsActiviy é chamada com os objetos obtidos no JSON em formato
-                             * de String
-                             *
-                             * @param jsonObject
-                             */
-                            @Override
-                            public void onSuccess(JSONObject jsonObject) {
-
-
-                                mMarketList = GooglePlacesJsonParser.parse(jsonObject.toString());
-                                if(mMarketList != null){
-                                    for (SuperMarketWrapper superMarket : mMarketList) {
-
-                                        mMap.addMarker(new MarkerOptions()
-                                                .title(superMarket.getName())
-                                                .snippet(superMarket.getAddress())
-                                                .position(new LatLng(
-                                                        superMarket.getLat(),
-                                                        superMarket.getLng()
-                                                ))
-                                        );
-                                    }
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(int statusCode, Throwable throwable, JSONObject error) {
-                                Toast.makeText(getActivity(), getResources().getString(R.string.placesNotFound), Toast.LENGTH_LONG).show();
-                                Log.e("RJGXM", statusCode + " " + throwable.getMessage());
-
-                            }
-                        });
+                geResultMaps(url, client);
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 14), 1500, null);
             } else {
                 Toast.makeText(getActivity(), getResources().getString(R.string.locationNotFound), Toast.LENGTH_LONG).show();
             }
         }
+
+    }
+
+    private void geResultMaps(String url, AsyncHttpClient client) {
+        client.get(url,
+                new JsonHttpResponseHandler() {
+                    /**
+                     * verifica se a requisição obteve sucesso ou falha, em caso de sucesso
+                     * a listRestultsActiviy é chamada com os objetos obtidos no JSON em formato
+                     * de String
+                     *
+                     * @param jsonObject
+                     */
+                    @Override
+                    public void onSuccess(JSONObject jsonObject) {
+                        mMarketList = GooglePlacesJsonParser.parse(jsonObject.toString());
+                        if (mMarketList != null) {
+                            for (SuperMarketWrapper superMarket : mMarketList) {
+                                mMap.addMarker(new MarkerOptions()
+                                        .title(superMarket.getName())
+                                        .snippet(superMarket.getAddress())
+                                        .position(new LatLng(
+                                                superMarket.getLat(),
+                                                superMarket.getLng()
+                                        ))
+                                );
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Throwable throwable, JSONObject error) {
+                        Toast.makeText(getActivity(), getResources().getString(R.string.placesNotFound), Toast.LENGTH_LONG).show();
+                        Log.e("RJGXM", statusCode + " " + throwable.getMessage());
+
+                    }
+                });
+    }
+
+    private boolean checkPermission() {
+        return (ActivityCompat.checkSelfPermission(getActivity(),
+                android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(getActivity(),
+                android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED);
     }
 
 }
