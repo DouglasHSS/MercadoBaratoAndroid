@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="exit">Exit</string>
+    <string name="validateFormLogin">Favor preencher todos os campos.</string>
+    <string name="validatePermissions">Para usar esse APP é preciso aceitar as permissões.</string>
 </resources>

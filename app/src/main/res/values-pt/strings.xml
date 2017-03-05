@@ -21,5 +21,7 @@
     <string name="register">Cadastrar</string>
     <string name="perfil">Perfil</string>
     <string name="exit">Exit</string>
+    <string name="validateFormLogin">Favor preencher todos os campos.</string>
+    <string name="validatePermissions">Para usar esse APP é preciso aceitar as permissões.</string>
 
 </resources>

@@ -1,10 +1,12 @@
 package com.br.cdr.mercadobarato.model;
 
+import java.io.Serializable;
+
 /**
  * Created by clebr on 20/02/2017.
  */
 
-public class UserWrapper {
+public class UserWrapper implements Serializable{
 
     private String username;
     private String password;

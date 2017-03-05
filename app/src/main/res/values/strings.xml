@@ -33,4 +33,7 @@
     <string name="create_account">Create Account</string>
     <string name="userLoc">You are here!</string>
     <string name="exit">Exit</string>
+    <string name="validateFormLogin">Favor preencher todos os campos.</string>
+    <string name="validatePermissions">Para usar esse APP é preciso aceitar as permissões.</string>
+    <string name="validateLoginSenha">Login ou senha incorretos.</string>
 </resources>
