@@ -19,9 +19,12 @@ public class WSThread extends AsyncTask<String, Void, String> {
 
     //Popula campos do formulário
     @Override
-    protected void onPostExecute(String s) {
-        super.onPostExecute(s);
-        Log.i("retorno", s);
+    protected void onPostExecute(String json) {
+        super.onPostExecute(json);
+        Log.i("retorno", json);
+        Intent intent = new Intent();
+        intent.putExtra("json", json);
+
     }
 
     @Override
@@ -37,15 +40,12 @@ public class WSThread extends AsyncTask<String, Void, String> {
             String json;
             WSClient wsClient = new WSClient(params[0]);
             if (params[1].equalsIgnoreCase("post")) {
-                json = wsClient.post(params[3]);
+                json = wsClient.post(params[2]);
 
             } else {
                 json = wsClient.get();
             }
 
-            if (params[2].equalsIgnoreCase("login")) {
-                validateLogin(json);
-            }
             return json;
         } catch (Exception e) {
             e.printStackTrace();
@@ -54,10 +54,4 @@ public class WSThread extends AsyncTask<String, Void, String> {
         }
     }
 
-    private void validateLogin(String json) {
-        Gson gson = new Gson();
-        UserWrapper user = gson.fromJson(json, UserWrapper.class); // converte de json para UserWrapper
-        Intent intent = new Intent();
-        intent.putExtra("user", user);
-    }
 }

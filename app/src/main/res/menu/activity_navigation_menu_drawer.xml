@@ -9,7 +9,7 @@
         <item
             android:id="@+id/list_menu"
             android:icon="@drawable/ic_menu_gallery"
-                android:title="@string/listMenu" />
+            android:title="@string/listMenu" />
         <item
             android:id="@+id/add_products_menu"
             android:icon="@drawable/ic_menu_slideshow"
@@ -18,13 +18,7 @@
         <item
             android:id="@+id/profile_menu"
             android:icon="@drawable/ic_menu_manage"
-            android:title="@string/productPrice" />
-
-        <item
-            android:id="@+id/exit_menu"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="@string/exit" />
-
+            android:title="@string/profile" />
 
     </group>
 

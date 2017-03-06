@@ -1,22 +1,21 @@
 package com.br.cdr.mercadobarato.activity;
 
-        import android.os.Bundle;
-        import android.support.design.widget.NavigationView;
-        import android.support.v4.view.GravityCompat;
-        import android.support.v4.widget.DrawerLayout;
-        import android.support.v7.app.ActionBarDrawerToggle;
-        import android.support.v7.app.AppCompatActivity;
-        import android.support.v7.widget.Toolbar;
-        import android.view.Menu;
-        import android.view.MenuItem;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 
-        import com.br.cdr.mercadobarato.R;
-        import com.br.cdr.mercadobarato.util.ExitAppDialog;
-        import com.br.cdr.mercadobarato.util.Utils;
+import com.br.cdr.mercadobarato.R;
+import com.br.cdr.mercadobarato.util.Utils;
 
 public class NavigationMenuActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, ExitAppDialog.ExitListener {
-
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,19 +90,17 @@ public class NavigationMenuActivity extends AppCompatActivity
     private void displaySelectedScreen(int itemId) {
 
         //creating fragment object
-        Class fragmentClass= null;
+        Fragment fragment = null;
+        Class fragmentClass = null;
 
         if (itemId == R.id.checkin_menu) {
             fragmentClass = MapsActivity.class;
-        } else if (itemId == R.id.add_products_menu) {
+        } else if  (itemId == R.id.add_products_menu) {
             fragmentClass = AddProductShoppingListActivity.class;
-        } else if (itemId == R.id.list_menu) {
+        }else if (itemId == R.id.list_menu) {
             fragmentClass = InfoActivity.class;
-        } else if (itemId == R.id.profile_menu) {
+        }else if (itemId == R.id.profile_menu) {
             fragmentClass = InfoActivity.class;
-        } else if (itemId == R.id.exit_menu) {
-            ExitAppDialog dialog = new ExitAppDialog();
-            dialog.show(getSupportFragmentManager(), "ExitAppDialog");
         } else {
             fragmentClass = MapsActivity.class;
         }
@@ -116,8 +113,4 @@ public class NavigationMenuActivity extends AppCompatActivity
     }
 
 
-    @Override
-    public void onExit() {
-        finish();
-    }
 }

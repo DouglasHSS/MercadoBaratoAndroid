@@ -2,11 +2,9 @@ package com.br.cdr.mercadobarato.util;
 
 
 import com.br.cdr.mercadobarato.model.SuperMarketWrapper;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,12 +26,9 @@ public class GooglePlacesJsonParser {
             Double lat;
             Double lng;
 
-
-
             for (int i = 0; i<marketList.length();i++){
                 SuperMarketWrapper superMarketWrapper = new SuperMarketWrapper();
                 market = marketList.getJSONObject(i);
-
                 superMarketWrapper.setName(market.getString("name"));
                 superMarketWrapper.setID(market.getString("place_id"));
                 superMarketWrapper.setAddress(market.getString("vicinity"));

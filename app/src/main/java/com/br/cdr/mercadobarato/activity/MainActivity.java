@@ -51,8 +51,8 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     validaLogin();
-
-                    user = (UserWrapper) getIntent().getSerializableExtra("user");
+                    
+                    user = (UserWrapper) getIntent().getSerializableExtra("json");
 
                     if (user.getToken() != null) {
                         Intent intent = new Intent(MainActivity.this, NavigationMenuActivity.class);
@@ -102,7 +102,6 @@ public class MainActivity extends AppCompatActivity {
                 String[] params = new String[]{
                         wsText,
                         "post",
-                        "login",
                         userJson
                 };
 
