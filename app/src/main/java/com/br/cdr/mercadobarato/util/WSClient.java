@@ -46,11 +46,14 @@ public class WSClient {
         printStream.println(json);
 
         connection.connect();
+        int responseCode = connection.getResponseCode();
+        String jsonDeResposta ="";
+        if (responseCode == 200) {
+            jsonDeResposta = new Scanner(connection.getInputStream()).next();
 
-        String jsonDeResposta = new Scanner(connection.getInputStream()).next();
-
-        Log.i("json", jsonDeResposta);
-
+            Log.i("json", jsonDeResposta);
+        }
+        connection.disconnect();
         return jsonDeResposta;
     }
 

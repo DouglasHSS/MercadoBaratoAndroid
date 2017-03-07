@@ -4,9 +4,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.br.cdr.mercadobarato.model.UserWrapper;
-import com.google.gson.Gson;
-
 /**
  * Created by clebr on 05/03/2017.
  */
@@ -17,14 +14,14 @@ public class WSThread extends AsyncTask<String, Void, String> {
         super.onPreExecute();
     }
 
-    //Popula campos do formulário
     @Override
     protected void onPostExecute(String json) {
         super.onPostExecute(json);
         Log.i("retorno", json);
-        Intent intent = new Intent();
-        intent.putExtra("json", json);
 
+        if (json.length() > 0) {
+            new Intent().putExtra("json", json);
+        }
     }
 
     @Override
