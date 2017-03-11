@@ -152,7 +152,7 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
                              * @param jsonObject
                              */
                             @Override
-                            public void onSuccess(JSONObject jsonObject) {
+                            public void onSuccess(int statusCode, Header[] headers, JSONObject jsonObject) {
 
 
                                 mMarketList = GooglePlacesJsonParser.parse(jsonObject.toString());
@@ -172,7 +172,7 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
                             }
 
                             @Override
-                            public void onFailure(int statusCode, Throwable throwable, JSONObject error) {
+                            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject error) {
                                 Toast.makeText(getActivity(), getResources().getString(R.string.placesNotFound), Toast.LENGTH_LONG).show();
                                 Log.e("RJGXM", statusCode + " " + throwable.getMessage());
 
