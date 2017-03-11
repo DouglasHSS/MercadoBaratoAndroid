@@ -1,6 +1,7 @@
 package com.br.cdr.mercadobarato.activity;
 
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
@@ -36,7 +37,10 @@ import org.json.JSONObject;
 
 import java.util.List;
 
+import cz.msebera.android.httpclient.Header;
+
 public class MapsActivity extends Fragment implements OnMapReadyCallback {
+
 
     private GoogleMap mMap;
     private BootstrapButton mCheckin;
@@ -45,12 +49,12 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
     private List<SuperMarketWrapper> mMarketList;
 
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.activity_maps, container, false);
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 //        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);

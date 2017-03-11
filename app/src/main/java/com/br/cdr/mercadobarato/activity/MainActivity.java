@@ -4,6 +4,8 @@ import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Entity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.multidex.MultiDex;
 import android.support.v7.app.AppCompatActivity;
@@ -46,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         MultiDex.install(this);
         setContentView(R.layout.activity_main);
+
 
         String[] permissoes = new String[]{
                 Manifest.permission.INTERNET,

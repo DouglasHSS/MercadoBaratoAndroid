@@ -1,5 +1,6 @@
 package com.br.cdr.mercadobarato.activity;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -33,6 +34,7 @@ public class HomeActivity extends Fragment {
         //change R.layout.yourlayoutfilename for each of your fragments
 
         View view = inflater.inflate(R.layout.activity_home, container, false);
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         buttons(view);
         return view;
     }
