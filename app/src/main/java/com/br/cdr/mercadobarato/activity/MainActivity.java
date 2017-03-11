@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private BootstrapButton signUp;
     private BootstrapEditText login_field;
     private BootstrapEditText password_field;
-    ProgressDialog loading = null;
+    private ProgressDialog loading = null;
 
 
     @Override
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
                     loading = new ProgressDialog(v.getContext());
                     loading.setCancelable(true);
-                    loading.setMessage("auten");
+                    loading.setMessage(getResources().getString(R.string.loading));
                     loading.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 
                     validaLogin();
@@ -167,10 +167,8 @@ public class MainActivity extends AppCompatActivity {
             Log.i("user", userJson);
             String wsText = getResources().getString(R.string.mercado_barato_api) + "users/login/";
             RequestParams params = new RequestParams();
-            params.put("user", userJson);
-            Log.i("param", params.toString());
             AsyncHttpClient client = new AsyncHttpClient();
-            client.setBasicAuth(login, password);
+//            client.setBasicAuth(login, password);
             StringEntity entity = null;
             try {
                 entity = new StringEntity(userJson);
