@@ -1,21 +1,28 @@
 package com.br.cdr.mercadobarato.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.br.cdr.mercadobarato.R;
+import com.br.cdr.mercadobarato.model.UserWrapper;
 import com.br.cdr.mercadobarato.util.Utils;
 
 public class NavigationMenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    TextView logged_user;
+    UserWrapper user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +32,7 @@ public class NavigationMenuActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
@@ -35,6 +43,12 @@ public class NavigationMenuActivity extends AppCompatActivity
 
         //add this line to display menu1 when the activity is loaded
         displaySelectedScreen(R.id.checkin_menu);
+
+        logged_user = (TextView) findViewById(R.id.logged_user);
+        Intent intent = getIntent();
+        user = (UserWrapper) intent.getSerializableExtra("user");
+        Log.i("userLogado", "anme " + user.getFirst_name());
+//        logged_user.setText(user.getFirst_name());
 
 
     }
@@ -95,11 +109,11 @@ public class NavigationMenuActivity extends AppCompatActivity
 
         if (itemId == R.id.checkin_menu) {
             fragmentClass = MapsActivity.class;
-        } else if  (itemId == R.id.add_products_menu) {
+        } else if (itemId == R.id.add_products_menu) {
             fragmentClass = AddProductShoppingListActivity.class;
-        }else if (itemId == R.id.list_menu) {
+        } else if (itemId == R.id.list_menu) {
             fragmentClass = InfoActivity.class;
-        }else if (itemId == R.id.profile_menu) {
+        } else if (itemId == R.id.profile_menu) {
             fragmentClass = InfoActivity.class;
         } else {
             fragmentClass = MapsActivity.class;

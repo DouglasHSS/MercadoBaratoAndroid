@@ -38,6 +38,7 @@
             app:bootstrapSize="md"
             app:bootstrapBrand="info"
             app:roundedCorners="true"
+            android:inputType="textWebPassword"
             android:hint="@string/password"
             android:inputType="textPassword"
             android:layout_centerHorizontal="true"

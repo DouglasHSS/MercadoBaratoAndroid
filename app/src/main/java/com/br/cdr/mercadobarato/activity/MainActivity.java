@@ -2,7 +2,6 @@ package com.br.cdr.mercadobarato.activity;
 
 import android.Manifest;
 import android.app.ProgressDialog;
-import android.content.Entity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
@@ -19,7 +18,6 @@ import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.br.cdr.mercadobarato.R;
 import com.br.cdr.mercadobarato.model.UserWrapper;
 import com.br.cdr.mercadobarato.util.Utils;
-import com.br.cdr.mercadobarato.util.WSThread;
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -28,7 +26,6 @@ import com.loopj.android.http.RequestParams;
 import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
-import cz.msebera.android.httpclient.HttpEntity;
 import cz.msebera.android.httpclient.entity.StringEntity;
 import cz.msebera.android.httpclient.message.BasicHeader;
 import cz.msebera.android.httpclient.protocol.HTTP;
@@ -74,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
                     loading.setMessage("auten");
                     loading.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 
-                    validaLoginTest();
+                    validaLogin();
 //                            (UserWrapper) getIntent().getSerializableExtra("json");
 
 
@@ -148,10 +145,14 @@ public class MainActivity extends AppCompatActivity {
 //        }
 //    }
 
-    private void validaLoginTest() {
+    private void validaLogin() {
 
         String login = login_field.getText().toString();
         String password = password_field.getText().toString();
+        login = "cleberson";
+        password = "123456";
+
+
         if (login.length() == 0 || password.length() == 0) {
             Toast.makeText(MainActivity.this, R.string.validateFormLogin, Toast.LENGTH_LONG).show();
 
@@ -186,10 +187,10 @@ public class MainActivity extends AppCompatActivity {
 
                     Log.i("responseUser", "" + response);
                     UserWrapper user = gson.fromJson(String.valueOf(response), UserWrapper.class);
-//                            (UserWrapper) getIntent().getSerializableExtra("json");
 
                     if (user.getToken() != null) {
                         Intent intent = new Intent(MainActivity.this, NavigationMenuActivity.class);
+                        intent.putExtra("user", user);
                         startActivity(intent);
                     }
 

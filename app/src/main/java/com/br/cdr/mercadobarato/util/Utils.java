@@ -38,12 +38,12 @@ public class Utils {
         }
 
 //        FragmentManager fm = getFragmentManager();
-    }
+        }
 
     public static boolean validatePermissions(Activity activity, Fragment fragment, int requestCode, String... permissions) {
         List<String> list = new ArrayList<>();
 
-        if (fragment!=null){
+        if (fragment != null) {
             activity = fragment.getActivity();
         }
 
@@ -61,7 +61,6 @@ public class Utils {
 
         String[] newPermissions = new String[list.size()];
         newPermissions = list.toArray(newPermissions);
-        Log.i("permissoes", newPermissions.toString());
         ActivityCompat.requestPermissions(activity, newPermissions, 1);
 
         return false;
