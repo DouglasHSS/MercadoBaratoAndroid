@@ -14,6 +14,9 @@ public class UserWrapper implements Serializable{
     private String first_name;
     private String email;
 
+    private static final long serialVersionUID = 1L;
+
+
     public String getEmail() {
         return email;
     }
