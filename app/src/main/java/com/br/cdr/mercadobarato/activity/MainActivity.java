@@ -1,8 +1,9 @@
 package com.br.cdr.mercadobarato.activity;
 
 import android.Manifest;
+import android.app.ProgressDialog;
+import android.content.Entity;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.multidex.MultiDex;
 import android.support.v7.app.AppCompatActivity;
@@ -24,12 +25,20 @@ import com.loopj.android.http.RequestParams;
 
 import org.json.JSONObject;
 
+import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.HttpEntity;
+import cz.msebera.android.httpclient.entity.StringEntity;
+import cz.msebera.android.httpclient.message.BasicHeader;
+import cz.msebera.android.httpclient.protocol.HTTP;
+
+
 public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private BootstrapButton login;
     private BootstrapButton signUp;
     private BootstrapEditText login_field;
     private BootstrapEditText password_field;
+    ProgressDialog loading = null;
 
 
     @Override
@@ -51,11 +60,18 @@ public class MainActivity extends AppCompatActivity {
             toolbar = (Toolbar) findViewById(R.id.main_bar);
             setSupportActionBar(toolbar);
 
+
             login = (BootstrapButton) findViewById(R.id.button_login);
             login.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    validaLogin();
+
+                    loading = new ProgressDialog(v.getContext());
+                    loading.setCancelable(true);
+                    loading.setMessage("auten");
+                    loading.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+
+                    validaLoginTest();
 //                            (UserWrapper) getIntent().getSerializableExtra("json");
 
 
@@ -81,53 +97,53 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void validaLogin() {
-        try {
-            String login = login_field.getText().toString();
-            String password = password_field.getText().toString();
-            if (login.length() == 0 || password.length() == 0) {
-                Toast.makeText(MainActivity.this, R.string.validateFormLogin, Toast.LENGTH_LONG).show();
-
-            } else {
-                UserWrapper user = new UserWrapper();
-                user.setUsername(login);
-                user.setPassword(password);
-                Gson gson = new Gson();
-                String userJson = gson.toJson(user, UserWrapper.class); // converte de json para UserWrapper
-                Log.i("user", userJson);
-                String wsText = getResources().getString(R.string.mercado_barato_api) + "users/login/";
-
-                String[] params = new String[]{
-                        wsText,
-                        "post",
-                        userJson
-                };
-
-                WSThread ws = new WSThread();
-
-                ws.execute(params); //Chama nova thread
-                Log.i("staus", ws.getStatus().name());
-//                Log.i("login", getIntent().getStringExtra("json"));
-                String result = ws.get();
-                Log.i("status", result);
-
-                if (ws.get().length() > 0) {
-                    user = gson.fromJson(ws.get(), UserWrapper.class);
-                    if (user != null && user.getToken() != null) {
-                        Intent intent = new Intent(this, NavigationMenuActivity.class);
-                        startActivity(intent);
-                        Log.i("login", "login");
-                    } else {
-                        Toast.makeText(MainActivity.this, R.string.validateLoginSenha, Toast.LENGTH_LONG).show();
-                    }
-
-                }
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    private void validaLogin() {
+//        try {
+//            String login = login_field.getText().toString();
+//            String password = password_field.getText().toString();
+//            login = "cleberson";
+//            password = "123456";
+//            if (login.length() == 0 || password.length() == 0) {
+//                Toast.makeText(MainActivity.this, R.string.validateFormLogin, Toast.LENGTH_LONG).show();
+//
+//            } else {
+//                UserWrapper user = new UserWrapper();
+//                user.setUsername(login);
+//                user.setPassword(password);
+//                Gson gson = new Gson();
+//                String userJson = gson.toJson(user, UserWrapper.class); // converte de json para UserWrapper
+//                Log.i("user", userJson);
+//                String wsText = getResources().getString(R.string.mercado_barato_api) + "users/login/";
+//
+//                String[] params = new String[]{
+//                        wsText,
+//                        "post",
+//                        userJson
+//                };
+//
+//                WSThread ws = new WSThread();
+//
+//                ws.execute(params); //Chama nova thread
+//
+//                if (ws.get().length() > 0) {
+//                    loading.dismiss();
+//
+//                    user = gson.fromJson(ws.get(), UserWrapper.class);
+//                    if (user != null && user.getToken() != null) {
+//                        Intent intent = new Intent(this, NavigationMenuActivity.class);
+//                        startActivity(intent);
+//                    } else {
+//                        Toast.makeText(MainActivity.this, R.string.validateLoginSenha, Toast.LENGTH_LONG).show();
+//                    }
+//                } else {
+//                    Toast.makeText(MainActivity.this, R.string.validateLoginSenha, Toast.LENGTH_LONG).show();
+//                }
+//            }
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     private void validaLoginTest() {
 
@@ -137,6 +153,8 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this, R.string.validateFormLogin, Toast.LENGTH_LONG).show();
 
         } else {
+            loading.show();
+
             UserWrapper user = new UserWrapper();
             user.setUsername(login);
             user.setPassword(password);
@@ -144,26 +162,25 @@ public class MainActivity extends AppCompatActivity {
             String userJson = gson.toJson(user, UserWrapper.class); // converte de json para UserWrapper
             Log.i("user", userJson);
             String wsText = getResources().getString(R.string.mercado_barato_api) + "users/login/";
-
-//                String[] params = new String[]{
-//                        wsText,
-//                        "post",
-//                        userJson
-//                };
-
-
-//                WSThread ws = new WSThread();
-
-//                ws.execute(params); //Chama nova thread
             RequestParams params = new RequestParams();
             params.put("user", userJson);
             Log.i("param", params.toString());
             AsyncHttpClient client = new AsyncHttpClient();
             client.setBasicAuth(login, password);
-            client.post(wsText, new JsonHttpResponseHandler() {
+            StringEntity entity = null;
+            try {
+                entity = new StringEntity(userJson);
+                entity.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+            } catch (Exception e) {
+            }
+            client.post(this, wsText, entity, "application/json", new JsonHttpResponseHandler() {
+
+
                 @Override
-                public void onSuccess(JSONObject response) {
-//                    super.onSuccess(response);
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+//                super.onSuccess(statusCode, headers, response);
+                    loading.dismiss();
+
                     Log.i("responseUser", "" + response);
                     UserWrapper user = gson.fromJson(String.valueOf(response), UserWrapper.class);
 //                            (UserWrapper) getIntent().getSerializableExtra("json");
@@ -172,17 +189,24 @@ public class MainActivity extends AppCompatActivity {
                         Intent intent = new Intent(MainActivity.this, NavigationMenuActivity.class);
                         startActivity(intent);
                     }
-//                    else {
 
-//                    }
                 }
 
                 @Override
-                public void onFailure(int statusCode, Throwable throwable, JSONObject errorResponse) {
-//                    super.onFailure(e, errorResponse);
+                public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+//                    super.onFailure(statusCode, headers, responseString, throwable);
+
+                    loading.dismiss();
                     Toast.makeText(MainActivity.this, R.string.validateLoginSenha, Toast.LENGTH_LONG).show();
-                    Log.e("RJGXM", statusCode + " " + throwable.getMessage());
+                    Log.e("RJGXM", statusCode + " " + throwable.getMessage() + " " + responseString);
                 }
+
+
+                @Override
+                public void onProgress(long bytesWritten, long totalSize) {
+                    super.onProgress(bytesWritten, totalSize);
+                }
+
             });
         }
     }
