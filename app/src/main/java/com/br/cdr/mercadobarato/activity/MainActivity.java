@@ -203,12 +203,6 @@ public class MainActivity extends AppCompatActivity {
                     Log.e("RJGXM", statusCode + " " + throwable.getMessage() + " " + responseString);
                 }
 
-
-                @Override
-                public void onProgress(long bytesWritten, long totalSize) {
-                    super.onProgress(bytesWritten, totalSize);
-                }
-
             });
         }
     }

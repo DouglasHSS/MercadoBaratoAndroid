@@ -2,6 +2,7 @@ package com.br.cdr.mercadobarato.activity;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,8 +16,12 @@ import com.br.cdr.mercadobarato.model.UserWrapper;
 import com.br.cdr.mercadobarato.util.Utils;
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import org.json.JSONObject;
+
+import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.StringEntity;
 import cz.msebera.android.httpclient.message.BasicHeader;
 import cz.msebera.android.httpclient.protocol.HTTP;
@@ -49,7 +54,7 @@ public class RegisterActivity extends AppCompatActivity {
             password_field_register = (BootstrapEditText) findViewById(R.id.password_field_register);
             confirm_password = (BootstrapEditText) findViewById(R.id.confirm_password);
 
-            registerButton = (BootstrapButton) findViewById(R.id.button_login);
+            registerButton = (BootstrapButton) findViewById(R.id.button_register);
             registerButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -83,6 +88,8 @@ public class RegisterActivity extends AppCompatActivity {
                 || password.length() == 0 || confirmPassword.length() == 0) {
             Toast.makeText(RegisterActivity.this, R.string.validateFormLogin, Toast.LENGTH_LONG).show();
 
+        } else if (!password.equals(confirmPassword)) {
+            Toast.makeText(RegisterActivity.this, R.string.validatePasswordEquals, Toast.LENGTH_LONG).show();
         } else {
             loading.show();
 
@@ -93,12 +100,8 @@ public class RegisterActivity extends AppCompatActivity {
             final Gson gson = new Gson();
             String userJson = gson.toJson(user, UserWrapper.class); // converte de json para UserWrapper
             Log.i("user", userJson);
-            String wsText = getResources().getString(R.string.mercado_barato_api) + "users/login/";
-            RequestParams params = new RequestParams();
-            params.put("user", userJson);
-            Log.i("param", params.toString());
+            String wsText = getResources().getString(R.string.mercado_barato_api) + "users/";
             AsyncHttpClient client = new AsyncHttpClient();
-
 
             StringEntity entity = null;
             try {
@@ -107,7 +110,36 @@ public class RegisterActivity extends AppCompatActivity {
             } catch (Exception e) {
             }
 
+            client.post(this, wsText, entity, "application/json", new JsonHttpResponseHandler() {
 
+
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+//                super.onSuccess(statusCode, headers, response);
+                    loading.dismiss();
+
+                    Log.i("responseUser", "" + response);
+                    UserWrapper user = gson.fromJson(String.valueOf(response), UserWrapper.class);
+
+                    if (user.getToken() != null) {
+                        Intent intent = new Intent(RegisterActivity.this, NavigationMenuActivity.class);
+                        intent.putExtra("user", user);
+                        startActivity(intent);
+                    }
+
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+//                    super.onFailure(statusCode, headers, responseString, throwable);
+
+                    loading.dismiss();
+                    Toast.makeText(RegisterActivity.this, responseString, Toast.LENGTH_LONG).show();
+                    Log.e("RJGXM", statusCode + " " + throwable.getMessage() + " " + responseString);
+                }
+
+
+            });
         }
 
 
