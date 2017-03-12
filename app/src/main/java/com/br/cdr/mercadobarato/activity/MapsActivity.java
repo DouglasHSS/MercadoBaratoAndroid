@@ -1,6 +1,7 @@
 package com.br.cdr.mercadobarato.activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
@@ -8,8 +9,10 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,9 +21,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.br.cdr.mercadobarato.Manifest;
 import com.br.cdr.mercadobarato.R;
 import com.br.cdr.mercadobarato.model.SuperMarketWrapper;
 import com.br.cdr.mercadobarato.util.GooglePlacesJsonParser;
+import com.br.cdr.mercadobarato.util.Utils;
 import com.crystal.crystalrangeseekbar.interfaces.OnSeekbarChangeListener;
 import com.crystal.crystalrangeseekbar.interfaces.OnSeekbarFinalValueListener;
 import com.crystal.crystalrangeseekbar.widgets.CrystalSeekbar;
@@ -61,6 +66,13 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
         View view = inflater.inflate(R.layout.activity_maps, container, false);
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+        String[] permissions = new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION,
+                android.Manifest.permission.ACCESS_COARSE_LOCATION};
+
+
+        Utils.validatePermissions(getActivity(), 0, permissions);
+
+
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
@@ -97,6 +109,19 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
         return view;
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        for (int result : grantResults) {
+            if (result == PackageManager.PERMISSION_DENIED) {
+                // Alguma permissão foi negada, agora é com você :-)
+                Utils.alertAndFinish(getActivity());
+                return;
+            }
+        }
+    }
+
+
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
@@ -109,34 +134,28 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        if (ActivityCompat.checkSelfPermission(
-                getActivity(),
-                android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(getActivity(),
-                android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-        } else {
-            if (!mMap.isMyLocationEnabled())
-                mMap.setMyLocationEnabled(true);
 
-            LocationManager lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-            mLocation = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        if (!mMap.isMyLocationEnabled())
+            mMap.setMyLocationEnabled(true);
 
-            if (mLocation == null) {
-                Criteria criteria = new Criteria();
-                criteria.setAccuracy(Criteria.ACCURACY_COARSE);
-                String provider = lm.getBestProvider(criteria, true);
-                mLocation = lm.getLastKnownLocation(provider);
-            }
+        LocationManager lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        mLocation = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+        if (mLocation == null) {
+            Criteria criteria = new Criteria();
+            criteria.setAccuracy(Criteria.ACCURACY_COARSE);
+            String provider = lm.getBestProvider(criteria, true);
+            mLocation = lm.getLastKnownLocation(provider);
         }
+
         mCheckin.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                searchLocation(v,mLocation);
+                searchLocation(v, mLocation);
             }
         });
     }
 
-    public void searchLocation(View v, Location myLocation){
+    public void searchLocation(View v, Location myLocation) {
         if (myLocation != null) {
             LatLng userLocation = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
             String url = new StringBuilder().append(getResources().getString(R.string.google_places_url))
@@ -159,9 +178,9 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
                             mMarketList = GooglePlacesJsonParser.parse(jsonObject.toString());
                             Marker marker;
                             mSuperMarkertWrapperMap = new HashMap<LatLng, SuperMarketWrapper>();
-                            if(mMarketList != null){
+                            if (mMarketList != null) {
                                 for (SuperMarketWrapper superMarket : mMarketList) {
-                                    marker =  mMap.addMarker(new MarkerOptions()
+                                    marker = mMap.addMarker(new MarkerOptions()
                                             .title(superMarket.getName())
                                             .snippet(superMarket.getAddress())
                                             .position(new LatLng(
@@ -169,7 +188,7 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
                                                     superMarket.getLng()
                                             ))
                                     );
-                                    mSuperMarkertWrapperMap.put(marker.getPosition(),superMarket);
+                                    mSuperMarkertWrapperMap.put(marker.getPosition(), superMarket);
                                 }
 
                                 mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
@@ -180,8 +199,8 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
                                         markerLocation.setLatitude(marker.getPosition().latitude);
                                         markerLocation.setLongitude(marker.getPosition().longitude);
 
-                                        mDistance = distanceBetween(mLocation,markerLocation);
-                                        if (mDistance <= 500){
+                                        mDistance = distanceBetween(mLocation, markerLocation);
+                                        if (mDistance <= 500) {
                                             LatLng latLng = new LatLng(marker.getPosition().latitude,
                                                     marker.getPosition().longitude);
                                             SuperMarketWrapper wrapper = mSuperMarkertWrapperMap.get(latLng);
@@ -192,7 +211,7 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
                                            /* Toast.makeText(getActivity(), marker.getTitle(),
                                                     Toast.LENGTH_LONG).show();*/
 
-                                        }else{
+                                        } else {
                                             Toast.makeText(getActivity(), getResources().getString(R.string.checkInFailed),
                                                     Toast.LENGTH_LONG).show();
 
@@ -217,22 +236,21 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
     }
 
 
-    double distanceBetween(Location l1, Location l2)
-    {
+    double distanceBetween(Location l1, Location l2) {
 
-        double lat1=l1.getLatitude();
-        double lon1=l1.getLongitude();
-        double lat2=l2.getLatitude();
-        double lon2=l2.getLongitude();
+        double lat1 = l1.getLatitude();
+        double lon1 = l1.getLongitude();
+        double lat2 = l2.getLatitude();
+        double lon2 = l2.getLongitude();
         double R = 6371; // km
-        double dLat = (lat2-lat1)*Math.PI/180;
-        double dLon = (lon2-lon1)*Math.PI/180;
-        lat1 = lat1*Math.PI/180;
-        lat2 = lat2*Math.PI/180;
+        double dLat = (lat2 - lat1) * Math.PI / 180;
+        double dLon = (lon2 - lon1) * Math.PI / 180;
+        lat1 = lat1 * Math.PI / 180;
+        lat2 = lat2 * Math.PI / 180;
 
-        double a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-                Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2);
-        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         double d = R * c * 1000;
         return d;
     }

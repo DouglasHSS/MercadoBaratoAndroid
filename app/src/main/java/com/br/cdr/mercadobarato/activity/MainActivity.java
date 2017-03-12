@@ -2,11 +2,17 @@ package com.br.cdr.mercadobarato.activity;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.multidex.MultiDex;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -30,6 +36,8 @@ import cz.msebera.android.httpclient.entity.StringEntity;
 import cz.msebera.android.httpclient.message.BasicHeader;
 import cz.msebera.android.httpclient.protocol.HTTP;
 
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+
 
 public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
@@ -49,101 +57,45 @@ public class MainActivity extends AppCompatActivity {
 
         String[] permissoes = new String[]{
                 Manifest.permission.INTERNET,
-                Manifest.permission.ACCESS_NETWORK_STATE,
-                Manifest.permission.ACCESS_WIFI_STATE,
-                Manifest.permission.CHANGE_WIFI_STATE
+                Manifest.permission.ACCESS_NETWORK_STATE
         };
 
-        if (Utils.validatePermissions(this, null, 0, permissoes)) {
+        Utils.validatePermissions(this, 0, permissoes);
+
+        // Usuário aceitou a permissão!
+        toolbar = (Toolbar) findViewById(R.id.main_bar);
+        setSupportActionBar(toolbar);
 
 
-            toolbar = (Toolbar) findViewById(R.id.main_bar);
-            setSupportActionBar(toolbar);
+        login = (BootstrapButton) findViewById(R.id.button_login);
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                loading = new ProgressDialog(v.getContext());
+                loading.setCancelable(true);
+                loading.setMessage(getResources().getString(R.string.loading));
+                loading.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 
-            login = (BootstrapButton) findViewById(R.id.button_login);
-            login.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    loading = new ProgressDialog(v.getContext());
-                    loading.setCancelable(true);
-                    loading.setMessage(getResources().getString(R.string.loading));
-                    loading.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-
-                    validaLogin();
+                validaLogin();
 //                            (UserWrapper) getIntent().getSerializableExtra("json");
 
 
-                }
-            });
+            }
+        });
 
-            signUp = (BootstrapButton) findViewById(R.id.btn_signup);
-            signUp.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+        signUp = (BootstrapButton) findViewById(R.id.btn_signup);
+        signUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
 
-
-                    Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
-                    startActivity(intent);
-                }
-            });
-
-            password_field = (BootstrapEditText) findViewById(R.id.password_field);
-            login_field = (BootstrapEditText) findViewById(R.id.login_field);
-        } else {
-            Toast.makeText(MainActivity.this, R.string.validatePermissions, Toast.LENGTH_LONG).show();
-        }
-
+        password_field = (BootstrapEditText) findViewById(R.id.password_field);
+        login_field = (BootstrapEditText) findViewById(R.id.login_field);
     }
-
-//    private void validaLogin() {
-//        try {
-//            String login = login_field.getText().toString();
-//            String password = password_field.getText().toString();
-//            login = "cleberson";
-//            password = "123456";
-//            if (login.length() == 0 || password.length() == 0) {
-//                Toast.makeText(MainActivity.this, R.string.validateFormLogin, Toast.LENGTH_LONG).show();
-//
-//            } else {
-//                UserWrapper user = new UserWrapper();
-//                user.setUsername(login);
-//                user.setPassword(password);
-//                Gson gson = new Gson();
-//                String userJson = gson.toJson(user, UserWrapper.class); // converte de json para UserWrapper
-//                Log.i("user", userJson);
-//                String wsText = getResources().getString(R.string.mercado_barato_api) + "users/login/";
-//
-//                String[] params = new String[]{
-//                        wsText,
-//                        "post",
-//                        userJson
-//                };
-//
-//                WSThread ws = new WSThread();
-//
-//                ws.execute(params); //Chama nova thread
-//
-//                if (ws.get().length() > 0) {
-//                    loading.dismiss();
-//
-//                    user = gson.fromJson(ws.get(), UserWrapper.class);
-//                    if (user != null && user.getToken() != null) {
-//                        Intent intent = new Intent(this, NavigationMenuActivity.class);
-//                        startActivity(intent);
-//                    } else {
-//                        Toast.makeText(MainActivity.this, R.string.validateLoginSenha, Toast.LENGTH_LONG).show();
-//                    }
-//                } else {
-//                    Toast.makeText(MainActivity.this, R.string.validateLoginSenha, Toast.LENGTH_LONG).show();
-//                }
-//            }
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
 
     private void validaLogin() {
 
@@ -208,5 +160,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        for (int result : grantResults) {
+            if (result == PackageManager.PERMISSION_DENIED) {
+                // Alguma permissão foi negada, agora é com você :-)
+                Utils.alertAndFinish(this);
+                return;
+            }
+        }
+
+    }
 }
 

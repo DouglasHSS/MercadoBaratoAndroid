@@ -3,6 +3,8 @@ package com.br.cdr.mercadobarato.activity;
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -42,38 +44,38 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         String[] permissoes = new String[]{
                 Manifest.permission.INTERNET,
-                Manifest.permission.ACCESS_NETWORK_STATE,
-                Manifest.permission.ACCESS_WIFI_STATE,
-                Manifest.permission.CHANGE_WIFI_STATE
-        };
+                Manifest.permission.ACCESS_NETWORK_STATE};
+        Utils.validatePermissions(this, 0, permissoes);
+        name_field = (BootstrapEditText) findViewById(R.id.name_field);
+        email_field = (BootstrapEditText) findViewById(R.id.email_field);
+        password_field_register = (BootstrapEditText) findViewById(R.id.password_field_register);
+        confirm_password = (BootstrapEditText) findViewById(R.id.confirm_password);
 
-        if (Utils.validatePermissions(this, null, 0, permissoes)) {
+        registerButton = (BootstrapButton) findViewById(R.id.button_register);
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-            name_field = (BootstrapEditText) findViewById(R.id.name_field);
-            email_field = (BootstrapEditText) findViewById(R.id.email_field);
-            password_field_register = (BootstrapEditText) findViewById(R.id.password_field_register);
-            confirm_password = (BootstrapEditText) findViewById(R.id.confirm_password);
+                loading = new ProgressDialog(v.getContext());
+                loading.setCancelable(true);
+                loading.setMessage(getResources().getString(R.string.loading));
+                loading.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 
-            registerButton = (BootstrapButton) findViewById(R.id.button_register);
-            registerButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    loading = new ProgressDialog(v.getContext());
-                    loading.setCancelable(true);
-                    loading.setMessage(getResources().getString(R.string.loading));
-                    loading.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-
-                    validateRegister();
+                validateRegister();
 //                            (UserWrapper) getIntent().getSerializableExtra("json");
+            }
+        });
+    }
 
-
-                }
-            });
-
-
-        } else {
-            Toast.makeText(RegisterActivity.this, R.string.validatePermissions, Toast.LENGTH_LONG).show();
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        for (int result : grantResults) {
+            if (result == PackageManager.PERMISSION_DENIED) {
+                // Alguma permissão foi negada, agora é com você :-)
+                Utils.alertAndFinish(this);
+                return;
+            }
 
         }
     }

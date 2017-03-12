@@ -1,12 +1,14 @@
 package com.br.cdr.mercadobarato.util;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 
 import com.br.cdr.mercadobarato.R;
@@ -38,14 +40,10 @@ public class Utils {
         }
 
 //        FragmentManager fm = getFragmentManager();
-        }
+    }
 
-    public static boolean validatePermissions(Activity activity, Fragment fragment, int requestCode, String... permissions) {
+    public static boolean validatePermissions(Activity activity, int requestCode, String... permissions) {
         List<String> list = new ArrayList<>();
-
-        if (fragment != null) {
-            activity = fragment.getActivity();
-        }
 
         for (String permission : permissions) {
 
@@ -60,10 +58,28 @@ public class Utils {
         }
 
         String[] newPermissions = new String[list.size()];
-        newPermissions = list.toArray(newPermissions);
+        list.toArray(newPermissions);
         ActivityCompat.requestPermissions(activity, newPermissions, 1);
 
         return false;
     }
+
+
+    public static void alertAndFinish(final Activity activity) {
+        {
+            AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+            builder.setTitle(R.string.app_name).setMessage("Para utilizar este aplicativo, você precisa aceitar as permissões.");
+            // Add the buttons
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    activity.finish();
+                }
+            });
+            android.support.v7.app.AlertDialog dialog = builder.create();
+            dialog.show();
+
+        }
+    }
+
 
 }
