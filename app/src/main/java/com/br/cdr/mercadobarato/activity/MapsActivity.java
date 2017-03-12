@@ -1,6 +1,7 @@
 package com.br.cdr.mercadobarato.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
@@ -20,7 +21,6 @@ import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.br.cdr.mercadobarato.R;
 import com.br.cdr.mercadobarato.model.SuperMarketWrapper;
 import com.br.cdr.mercadobarato.util.GooglePlacesJsonParser;
-import com.br.cdr.mercadobarato.util.Utils;
 import com.crystal.crystalrangeseekbar.interfaces.OnSeekbarChangeListener;
 import com.crystal.crystalrangeseekbar.interfaces.OnSeekbarFinalValueListener;
 import com.crystal.crystalrangeseekbar.widgets.CrystalSeekbar;
@@ -29,25 +29,28 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import cz.msebera.android.httpclient.Header;
 
 public class MapsActivity extends Fragment implements OnMapReadyCallback {
 
-
     private GoogleMap mMap;
     private BootstrapButton mCheckin;
-    private String mRange;
-    private int mDist;
+    private Location mLocation;
+    private CrystalSeekbar mRangebar;
+    private int mRange;
     private List<SuperMarketWrapper> mMarketList;
-
+    private Map<LatLng, SuperMarketWrapper> mSuperMarkertWrapperMap;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,45 +60,35 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.activity_maps, container, false);
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-//        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
         // get seekbar from view
-        final CrystalSeekbar seekbar = (CrystalSeekbar) view.findViewById(R.id.rangeSeekbar1);
+        mRangebar = (CrystalSeekbar) view.findViewById(R.id.rangeSeekbar1);
         // get min and max text view
         final TextView tvRange = (TextView) view.findViewById(R.id.textMin1);
 
 
         mCheckin = (BootstrapButton) view.findViewById(R.id.btn_checkin);
-        mCheckin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Utils.openFragment(HomeActivity.class, getFragmentManager());
 
-//                Intent intent = new Intent(MapsActivity.this, HomeActivity.class);
-//                startActivity(intent);
-            }
-        });
-
-
-
-
-       // set listener
-        seekbar.setOnSeekbarChangeListener(new OnSeekbarChangeListener() {
+        mRangebar.setMaxValue(25);
+        mRangebar.setMinValue(1);
+        // set listener
+        mRangebar.setOnSeekbarChangeListener(new OnSeekbarChangeListener() {
             @Override
             public void valueChanged(Number value) {
                 tvRange.setText(String.valueOf(value));
+
             }
         });
 
         // set final value listener
-        seekbar.setOnSeekbarFinalValueListener(new OnSeekbarFinalValueListener() {
+        mRangebar.setOnSeekbarFinalValueListener(new OnSeekbarFinalValueListener() {
             @Override
             public void finalValue(Number value) {
-
                 Log.d("CRS=>", String.valueOf(value));
+                mRange = (value.intValue() * 1000);
 
             }
         });
@@ -103,7 +96,6 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
 
         return view;
     }
-
 
     /**
      * Manipulates the map once available.
@@ -117,7 +109,6 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
         if (ActivityCompat.checkSelfPermission(
                 getActivity(),
                 android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
@@ -129,69 +120,126 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
                 mMap.setMyLocationEnabled(true);
 
             LocationManager lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-            Location myLocation = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            mLocation = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
-            if (myLocation == null) {
+            if (mLocation == null) {
                 Criteria criteria = new Criteria();
                 criteria.setAccuracy(Criteria.ACCURACY_COARSE);
                 String provider = lm.getBestProvider(criteria, true);
-                myLocation = lm.getLastKnownLocation(provider);
+                mLocation = lm.getLastKnownLocation(provider);
             }
+        }
+        mCheckin.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                searchLocation(v,mLocation);
+            }
+        });
+    }
 
-            if (myLocation != null) {
-                LatLng userLocation = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
-                mRange = (getResources().getString(R.string.default_range));
-                mDist = 10000;
-                String url = new StringBuilder().append(getResources().getString(R.string.google_places_url))
-                        .append(myLocation.getLatitude()).append("%2C").append(myLocation.getLongitude()).append("&types=grocery_or_supermarket&radius=").append(mDist).append("&key=").
-                                append(getResources().getString(R.string.google_places_key)).toString();
+    public void searchLocation(View v, Location myLocation){
+        if (myLocation != null) {
+            LatLng userLocation = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
+            String url = new StringBuilder().append(getResources().getString(R.string.google_places_url))
+                    .append(myLocation.getLatitude()).append("%2C").append(myLocation.getLongitude()).append("&types=grocery_or_supermarket&radius=").append(mRange).append("&key=").
+                            append(getResources().getString(R.string.google_places_key)).toString();
 
-                AsyncHttpClient client = new AsyncHttpClient();
+            AsyncHttpClient client = new AsyncHttpClient();
 
-                client.get(url,
-                        new JsonHttpResponseHandler() {
-                            /**
-                             * verifica se a requisição obteve sucesso ou falha, em caso de sucesso
-                             * a listRestultsActiviy é chamada com os objetos obtidos no JSON em formato
-                             * de String
-                             *
-                             * @param jsonObject
-                             */
-                            @Override
-                            public void onSuccess(int statusCode, Header[] headers, JSONObject jsonObject) {
-
-
-                                mMarketList = GooglePlacesJsonParser.parse(jsonObject.toString());
-                                if(mMarketList != null){
-                                    for (SuperMarketWrapper superMarket : mMarketList) {
-
-                                        mMap.addMarker(new MarkerOptions()
-                                                .title(superMarket.getName())
-                                                .snippet(superMarket.getAddress())
-                                                .position(new LatLng(
-                                                        superMarket.getLat(),
-                                                        superMarket.getLng()
-                                                ))
-                                        );
-                                    }
+            client.get(url,
+                    new JsonHttpResponseHandler() {
+                        /**
+                         * verifica se a requisição obteve sucesso ou falha, em caso de sucesso
+                         * a listRestultsActiviy é chamada com os objetos obtidos no JSON em formato
+                         * de String
+                         *
+                         * @param jsonObject
+                         */
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, JSONObject jsonObject) {
+                            mMarketList = GooglePlacesJsonParser.parse(jsonObject.toString());
+                            Marker marker;
+                            mSuperMarkertWrapperMap = new HashMap<LatLng, SuperMarketWrapper>();
+                            if(mMarketList != null){
+                                for (SuperMarketWrapper superMarket : mMarketList) {
+                                    marker =  mMap.addMarker(new MarkerOptions()
+                                            .title(superMarket.getName())
+                                            .snippet(superMarket.getAddress())
+                                            .position(new LatLng(
+                                                    superMarket.getLat(),
+                                                    superMarket.getLng()
+                                            ))
+                                    );
+                                    mSuperMarkertWrapperMap.put(marker.getPosition(),superMarket);
                                 }
-                            }
 
-                            @Override
-                            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject error) {
-                                Toast.makeText(getActivity(), getResources().getString(R.string.placesNotFound), Toast.LENGTH_LONG).show();
-                                Log.e("RJGXM", statusCode + " " + throwable.getMessage());
+                                mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+                                    @Override
+                                    public void onInfoWindowClick(Marker marker) {
+                                        Double mDistance;
+                                        Location markerLocation = new Location("");
+                                        markerLocation.setLatitude(marker.getPosition().latitude);
+                                        markerLocation.setLongitude(marker.getPosition().longitude);
 
+                                        mDistance = distanceBetween(mLocation,markerLocation);
+                                        if (mDistance <= 500){
+                                            LatLng latLng = new LatLng(marker.getPosition().latitude,
+                                                    marker.getPosition().longitude);
+                                            SuperMarketWrapper wrapper = mSuperMarkertWrapperMap.get(latLng);
+                                            Intent it = new Intent(getActivity(), SuperMarketCheckedInActivity.class);
+                                            it.putExtra("superMarkerWrapper", wrapper);
+                                            getActivity().startActivity(it);
+
+                                           /* Toast.makeText(getActivity(), marker.getTitle(),
+                                                    Toast.LENGTH_LONG).show();*/
+
+                                        }else{
+                                            Toast.makeText(getActivity(), getResources().getString(R.string.checkInFailed),
+                                                    Toast.LENGTH_LONG).show();
+
+                                        }
+                                    }
+                                });
                             }
-                        });
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 14), 1500, null);
-            } else {
-                Toast.makeText(getActivity(), getResources().getString(R.string.locationNotFound), Toast.LENGTH_LONG).show();
-            }
+                        }
+
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject error) {
+                            Toast.makeText(getActivity(), getResources().getString(R.string.placesNotFound), Toast.LENGTH_LONG).show();
+                            Log.e("RJGXM", statusCode + " " + throwable.getMessage());
+
+                        }
+                    });
+
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 14), 1500, null);
+        } else {
+            Toast.makeText(getActivity(), getResources().getString(R.string.locationNotFound), Toast.LENGTH_LONG).show();
         }
     }
 
+
+    double distanceBetween(Location l1, Location l2)
+    {
+
+        double lat1=l1.getLatitude();
+        double lon1=l1.getLongitude();
+        double lat2=l2.getLatitude();
+        double lon2=l2.getLongitude();
+        double R = 6371; // km
+        double dLat = (lat2-lat1)*Math.PI/180;
+        double dLon = (lon2-lon1)*Math.PI/180;
+        lat1 = lat1*Math.PI/180;
+        lat2 = lat2*Math.PI/180;
+
+        double a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        double d = R * c * 1000;
+        return d;
+    }
+
+
 }
+
 
 
 

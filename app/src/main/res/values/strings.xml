@@ -6,7 +6,7 @@
     <string name="product_description">Product Description</string>
     <string name="save_product">Save Product</string>
     <string name="add_product_cart">Add product to shopping list</string>
-    <string name="checkin">Check-in</string>
+    <string name="search">Search Groceries</string>
     <string name="title_activity_navigation_menu">NavigationMenuActivity</string>
 
     <string name="mapMenu">Check-in</string>
@@ -17,6 +17,9 @@
     <string name="loading">Loading...</string>
     <string name="waiting">Please Wait</string>
     <string name="locationNotFound">Location Not found</string>
+    <string name="checkInFailed">Please go to a super market to check-in</string>
+    <string name="checkedIn">Hello! you just checked in at</string>
+    <string name="productsUpdateMessage">Please Help Us Addding new products or update products prices.</string>
     <string name="placesNotFound">No Super Market around you, please increase your range.</string>
 
 

@@ -7,8 +7,9 @@
     <string name="product_description">Descrição</string>
     <string name="save_product">Salvar</string>
     <string name="add_product_cart">Adicionar ao carrinho</string>
-    <string name="checkin">Check-in</string>
+    <string name="search">Buscar Mercados</string>
     <string name="title_activity_navigation_menu">NavigationMenuActivity</string>
+    <string name="checkInFailed">Entre no Super Mercado para realizar o check-in</string>
 
 
     <string name="action_settings">Configurações</string>

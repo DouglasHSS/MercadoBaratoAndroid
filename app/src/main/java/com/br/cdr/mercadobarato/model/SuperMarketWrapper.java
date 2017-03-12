@@ -1,10 +1,12 @@
 package com.br.cdr.mercadobarato.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Rodrigojgxm on 2/19/2017.
  */
 
-public class SuperMarketWrapper {
+public class SuperMarketWrapper implements Serializable {
 
     private String mID;
     private String mName;

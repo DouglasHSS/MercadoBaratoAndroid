@@ -12,7 +12,9 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
 
     <application
         android:name="android.support.multidex.MultiDexApplication"
@@ -31,7 +33,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--<activity android:name=".AddProductShoppingListActivity" />-->
+        <!-- <activity android:name=".AddProductShoppingListActivity" /> -->
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -44,19 +46,20 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <!--<activity-->
-        <!--android:name=".activity.MapsActivity"-->
-        <!--android:label="@string/checkin">-->
-        <!--<meta-data-->
-        <!--android:name="android.support.PARENT_ACTIVITY"-->
-        <!--android:value="com.br.cdr.mercadobarato.activity.MainActivity" />-->
-        <!--</activity>-->
+        <!-- <activity -->
+        <!-- android:name=".activity.MapsActivity" -->
+        <!-- android:label="@string/checkin"> -->
+        <!-- <meta-data -->
+        <!-- android:name="android.support.PARENT_ACTIVITY" -->
+        <!-- android:value="com.br.cdr.mercadobarato.activity.MainActivity" /> -->
+        <!-- </activity> -->
         <activity
             android:name=".activity.RegisterActivity"
             android:screenOrientation="portrait" />
-        <!--<activity android:name=".activity.HomeActivity" />-->
-        <!--<activity android:name=".InfoActivity" />-->
-        <activity android:name=".activity.NavigationMenuActivity" />
+        <!-- <activity android:name=".activity.HomeActivity" /> -->
+        <!-- <activity android:name=".InfoActivity" /> -->
+        <activity android:name=".activity.NavigationMenuActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.SuperMarketCheckedInActivity"></activity>
     </application>
 
 </manifest>
