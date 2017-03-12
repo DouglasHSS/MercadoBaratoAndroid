@@ -16,10 +16,11 @@ import android.widget.TextView;
 
 import com.br.cdr.mercadobarato.R;
 import com.br.cdr.mercadobarato.model.UserWrapper;
+import com.br.cdr.mercadobarato.util.ExitAppDialog;
 import com.br.cdr.mercadobarato.util.Utils;
 
 public class NavigationMenuActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, ExitAppDialog.ExitListener {
 
     TextView logged_user;
     UserWrapper user;
@@ -38,16 +39,18 @@ public class NavigationMenuActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         //add this line to display menu1 when the activity is loaded
         displaySelectedScreen(R.id.checkin_menu);
 
-        logged_user = (TextView) findViewById(R.id.logged_user);
+//        logged_user = (TextView) findViewById(R.id.logged_user);
         Intent intent = getIntent();
         user = (UserWrapper) intent.getSerializableExtra("user");
         Log.i("userLogado", "anme " + user.getFirst_name());
+//        logged_user = (TextView) drawer.findViewById(R.id.logged_user);
 //        logged_user.setText(user.getFirst_name());
 
 
@@ -112,9 +115,14 @@ public class NavigationMenuActivity extends AppCompatActivity
         } else if (itemId == R.id.add_products_menu) {
             fragmentClass = AddProductShoppingListActivity.class;
         } else if (itemId == R.id.list_menu) {
-            fragmentClass = InfoActivity.class;
+            fragmentClass = SuperMarketCheckedInActivity.class;
         } else if (itemId == R.id.profile_menu) {
             fragmentClass = InfoActivity.class;
+        } else if (itemId == R.id.exit_menu) {
+
+            ExitAppDialog dialog = new ExitAppDialog();
+
+            dialog.show(getSupportFragmentManager(), "ExitAppDialog");
         } else {
             fragmentClass = MapsActivity.class;
         }
@@ -124,6 +132,11 @@ public class NavigationMenuActivity extends AppCompatActivity
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+    }
+
+    @Override
+    public void onExit() {
+        finish();
     }
 
 

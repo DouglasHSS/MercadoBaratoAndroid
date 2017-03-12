@@ -41,4 +41,5 @@
     <string name="validateLoginSenha">Login ou senha incorretos.</string>
     <string name="username">Username</string>
     <string name="email">Email</string>
+    <string name="validatePasswordEquals">Password\'s not match</string>
 </resources>
