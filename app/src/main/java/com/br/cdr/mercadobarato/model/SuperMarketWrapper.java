@@ -8,8 +8,8 @@ import java.io.Serializable;
 
 public class SuperMarketWrapper implements Serializable {
 
-    private String mID;
-    private String mName;
+    private String id;
+    private String name;
     private String mAddress;
     private Double mLat;
     private Double mLng;
@@ -20,19 +20,19 @@ public class SuperMarketWrapper implements Serializable {
     }
 
     public String getID() {
-        return mID;
+        return id;
     }
 
-    public void setID(String mID) {
-        this.mID = mID;
+    public void setID(String id) {
+        this.id = id;
     }
 
     public String getName() {
-        return mName;
+        return name;
     }
 
-    public void setName(String mName) {
-        this.mName = mName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getAddress() {
