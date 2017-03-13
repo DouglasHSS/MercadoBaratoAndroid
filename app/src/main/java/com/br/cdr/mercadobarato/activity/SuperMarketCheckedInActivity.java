@@ -14,8 +14,12 @@ import android.widget.Toast;
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.br.cdr.mercadobarato.R;
+import com.br.cdr.mercadobarato.model.ProductWrapper;
+import com.br.cdr.mercadobarato.model.SuperMarket;
 import com.br.cdr.mercadobarato.model.SuperMarketWrapper;
+import com.br.cdr.mercadobarato.model.UserWrapper;
 import com.br.cdr.mercadobarato.util.Utils;
+import com.google.gson.Gson;
 import com.google.zxing.client.android.CaptureActivity;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -23,6 +27,9 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.entity.StringEntity;
+import cz.msebera.android.httpclient.message.BasicHeader;
+import cz.msebera.android.httpclient.protocol.HTTP;
 
 public class SuperMarketCheckedInActivity extends AppCompatActivity {
 
@@ -30,6 +37,8 @@ public class SuperMarketCheckedInActivity extends AppCompatActivity {
     private SuperMarketWrapper superMarketWrapper;
     private BootstrapButton saveProduct;
     private BootstrapEditText editProductCode;
+    private BootstrapEditText mMarketName;
+    private ProgressDialog loading = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,12 +54,19 @@ public class SuperMarketCheckedInActivity extends AppCompatActivity {
         scanProduct = (BootstrapButton) findViewById(R.id.btn_scan_barcode);
         saveProduct = (BootstrapButton) findViewById(R.id.btn_save_product);
         editProductCode = (BootstrapEditText) findViewById(R.id.edit_product_code);
+        mMarketName = (BootstrapEditText) findViewById(R.id.market_name);
+
+        mMarketName.setEnabled(true);
+
         editProductCode.setEnabled(true);
         superMarketWrapper = (SuperMarketWrapper) getIntent().getExtras().get("superMarkerWrapper");
         String message = getResources().getString(R.string.checkedIn) + " " +
                 superMarketWrapper.getName() + "! " + getResources().getString(R.string.productsUpdateMessage);
         Toast.makeText(this, message,
                 Toast.LENGTH_LONG).show();
+
+        mMarketName.setText(superMarketWrapper.getName());
+        mMarketName.setEnabled(false);
 
 
         scanProduct.setOnClickListener(new View.OnClickListener() {
@@ -60,6 +76,20 @@ public class SuperMarketCheckedInActivity extends AppCompatActivity {
                 intent.setAction("com.google.zxing.client.android.SCAN");
                 intent.putExtra("SAVE_HISTORY", false);
                 startActivityForResult(intent, 0);
+
+            }
+        });
+
+        saveProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                loading = new ProgressDialog(v.getContext());
+                loading.setCancelable(true);
+                loading.setMessage(getResources().getString(R.string.loading));
+                loading.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+
+                saveProduct();
 
             }
         });
@@ -102,19 +132,108 @@ public class SuperMarketCheckedInActivity extends AppCompatActivity {
         client.get(url, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                super.onSuccess(statusCode, headers, response);
+//                super.onSuccess(statusCode, headers, response);
 
                 Log.i("statusCodeS", "" + statusCode);
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                super.onFailure(statusCode, headers, responseString, throwable);
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject responseString) {
+//                super.onFailure(statusCode, headers, responseString, throwable);
                 Log.i("statusCode", "" + statusCode);
+                saveMarket();
+
             }
         });
 
 
     }
+
+    private void saveMarket() {
+        loading.show();
+
+        SuperMarket superMarket = new SuperMarket();
+//        superMarket.setId(superMarketWrapper.getID());
+//        superMarket.setName(superMarketWrapper.getName());
+        final Gson gson = new Gson();
+        String supermarketJson = gson.toJson(superMarketWrapper, SuperMarketWrapper.class); // converte de json para UserWrapper
+        Log.i("supermarketJson", supermarketJson);
+        String wsText = getResources().getString(R.string.mercado_barato_api) + "supermarkets/";
+        AsyncHttpClient client = new AsyncHttpClient();
+
+        StringEntity entity = null;
+        try {
+            entity = new StringEntity(supermarketJson);
+            entity.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+        } catch (Exception e) {
+        }
+
+        client.post(this, wsText, entity, "application/json", new JsonHttpResponseHandler() {
+
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+//                super.onSuccess(statusCode, headers, response);
+                loading.dismiss();
+
+                Log.i("response", "" + response);
+                SuperMarketWrapper user = gson.fromJson(String.valueOf(response), SuperMarketWrapper.class);
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+//                    super.onFailure(statusCode, headers, responseString, throwable);
+                loading.dismiss();
+
+                Log.e("RJGXM", statusCode + " " + throwable.getMessage() + " " + responseString);
+            }
+
+        });
+    }
+
+
+    private void saveProduct() {
+
+        ProductWrapper product = new ProductWrapper();
+//        superMarket.setId(superMarketWrapper.getID());
+//        superMarket.setName(superMarketWrapper.getName());
+        final Gson gson = new Gson();
+        String productJson = gson.toJson(product, ProductWrapper.class); // converte de json para UserWrapper
+        Log.i("supermarketJson", productJson);
+        String wsText = getResources().getString(R.string.mercado_barato_api) +
+                "supermarkets/" + superMarketWrapper.getID() + "/products";
+        AsyncHttpClient client = new AsyncHttpClient();
+
+        StringEntity entity = null;
+        try {
+            entity = new StringEntity(productJson);
+            entity.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+        } catch (Exception e) {
+        }
+
+        client.post(this, wsText, entity, "application/json", new JsonHttpResponseHandler() {
+
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+//                super.onSuccess(statusCode, headers, response);
+
+                Log.i("response", "" + response);
+                ProductWrapper productWrapper = gson.fromJson(String.valueOf(response), ProductWrapper.class);
+
+            }
+
+            @Override
+
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject responseString) {
+//                    super.onFailure(statusCode, headers, responseString, throwable);
+
+                Log.e("RJGXM", statusCode + " " + throwable.getMessage() + " " + responseString);
+            }
+
+        });
+    }
+
 
 }
