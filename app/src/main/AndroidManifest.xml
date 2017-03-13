@@ -11,9 +11,10 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
+
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
@@ -59,8 +60,10 @@
             android:screenOrientation="portrait" />
         <!-- <activity android:name=".activity.HomeActivity" /> -->
         <!-- <activity android:name=".InfoActivity" /> -->
-        <activity android:name=".activity.NavigationMenuActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".activity.SuperMarketCheckedInActivity"></activity>
+        <activity
+            android:name=".activity.NavigationMenuActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.SuperMarketCheckedInActivity" />
     </application>
 
 </manifest>

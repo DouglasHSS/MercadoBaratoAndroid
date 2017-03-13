@@ -16,6 +16,11 @@
             android:title="@string/productPrice" />
 
         <item
+            android:id="@+id/compare_products"
+            android:icon="@drawable/ic_menu_share"
+            android:title="@string/compareProductsPrice" />
+
+        <item
             android:id="@+id/profile_menu"
             android:icon="@drawable/ic_menu_manage"
             android:title="@string/profile" />

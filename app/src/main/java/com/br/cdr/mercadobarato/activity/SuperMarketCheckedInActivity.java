@@ -25,7 +25,7 @@ public class SuperMarketCheckedInActivity extends AppCompatActivity {
         scanProduct = (BootstrapButton) findViewById(R.id.btn_scan_barcode);
         saveProduct = (BootstrapButton) findViewById(R.id.btn_save_product);
 
-        wrapper =(SuperMarketWrapper) getIntent().getExtras().get("superMarkerWrapper");
+        wrapper = (SuperMarketWrapper) getIntent().getExtras().get("superMarkerWrapper");
         String message = new StringBuilder().append(getResources().getString(R.string.checkedIn)).append(" ")
                 .append(wrapper.getName()).append("!").append(" ").append(getResources().getString(R.string.productsUpdateMessage)).toString();
         Toast.makeText(this, message,
@@ -35,22 +35,13 @@ public class SuperMarketCheckedInActivity extends AppCompatActivity {
         scanProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),CaptureActivity.class);
+                Intent intent = new Intent(getApplicationContext(), CaptureActivity.class);
                 intent.setAction("com.google.zxing.client.android.SCAN");
                 intent.putExtra("SAVE_HISTORY", false);
                 startActivityForResult(intent, 0);
 
             }
         });
-
-
-
-
-
-
-
-
-
     }
 
     @Override

@@ -15,6 +15,7 @@ public class InfoActivity extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
         //returning our layout file
         //change R.layout.yourlayoutfilename for each of your fragments
         return inflater.inflate(R.layout.activity_info, container, false);

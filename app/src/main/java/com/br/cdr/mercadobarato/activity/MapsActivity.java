@@ -61,18 +61,11 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        super.onCreateView(inflater, container, savedInstanceState);
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.activity_maps, container, false);
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
-        String[] permissions = new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION,
-                android.Manifest.permission.ACCESS_COARSE_LOCATION};
-
-
-        Utils.validatePermissions(getActivity(), 0, permissions);
-
 
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -141,24 +134,34 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        if (!mMap.isMyLocationEnabled())
-            mMap.setMyLocationEnabled(true);
+        if (ActivityCompat.checkSelfPermission(getActivity(),
+                android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(getActivity(),
+                        android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION,
+                    android.Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
 
-        LocationManager lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-        mLocation = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        } else {
 
-        if (mLocation == null) {
-            Criteria criteria = new Criteria();
-            criteria.setAccuracy(Criteria.ACCURACY_COARSE);
-            String provider = lm.getBestProvider(criteria, true);
-            mLocation = lm.getLastKnownLocation(provider);
-        }
+            if (!mMap.isMyLocationEnabled())
+                mMap.setMyLocationEnabled(true);
 
-        mCheckin.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                searchLocation(v, mLocation);
+            LocationManager lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+            mLocation = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+            if (mLocation == null) {
+                Criteria criteria = new Criteria();
+                criteria.setAccuracy(Criteria.ACCURACY_COARSE);
+                String provider = lm.getBestProvider(criteria, true);
+                mLocation = lm.getLastKnownLocation(provider);
             }
-        });
+
+            mCheckin.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    searchLocation(v, mLocation);
+                }
+            });
+        }
     }
 
     public void searchLocation(View v, Location myLocation) {

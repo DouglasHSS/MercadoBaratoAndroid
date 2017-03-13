@@ -42,4 +42,7 @@
     <string name="username">Username</string>
     <string name="email">Email</string>
     <string name="validatePasswordEquals">Password\'s not match</string>
+    <string name="compareProductsPrice">Compare Products Prices</string>
+    <string name="title_activity_compare_prices_form">ComparePricesForm</string>
+    <string name="title_activity_compare_price_form_fragment">Compare Price Form</string>
 </resources>

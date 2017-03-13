@@ -15,12 +15,13 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.br.cdr.mercadobarato.R;
+import com.br.cdr.mercadobarato.activity.dummy.DummyContent;
 import com.br.cdr.mercadobarato.model.UserWrapper;
 import com.br.cdr.mercadobarato.util.ExitAppDialog;
 import com.br.cdr.mercadobarato.util.Utils;
 
 public class NavigationMenuActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, ExitAppDialog.ExitListener {
+        implements NavigationView.OnNavigationItemSelectedListener, ExitAppDialog.ExitListener, CompareProductsFragment.OnListFragmentInteractionListener {
 
     TextView logged_user;
     UserWrapper user;
@@ -118,6 +119,8 @@ public class NavigationMenuActivity extends AppCompatActivity
             fragmentClass = SuperMarketCheckedInActivity.class;
         } else if (itemId == R.id.profile_menu) {
             fragmentClass = InfoActivity.class;
+        } else if (itemId == R.id.compare_products) {
+            fragmentClass = ComparePriceFormFragment.class;
         } else if (itemId == R.id.exit_menu) {
 
             ExitAppDialog dialog = new ExitAppDialog();
@@ -140,4 +143,8 @@ public class NavigationMenuActivity extends AppCompatActivity
     }
 
 
+    @Override
+    public void onListFragmentInteraction(DummyContent.DummyItem item) {
+
+    }
 }

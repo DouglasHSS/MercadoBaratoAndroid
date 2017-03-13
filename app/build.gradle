@@ -35,6 +35,9 @@ dependencies {
     compile 'com.google.code.gson:gson:2.7'
     compile 'com.crystal:crystalrangeseekbar:1.1.1'
     compile 'cz.msebera.android:httpclient:4.3.6'
+    compile 'com.android.support:support-v4:24.2.1'
+    compile 'com.android.support:recyclerview-v7:24.2.1'
+    compile 'com.android.support.constraint:constraint-layout:+'
     compile 'junit:junit:4.12'
     compile 'com.tarun0.zxing-standalone:zxing-standalone:1.0.0'
 }
