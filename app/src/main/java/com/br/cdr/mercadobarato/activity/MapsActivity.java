@@ -48,6 +48,8 @@ import java.util.Map;
 
 import cz.msebera.android.httpclient.Header;
 
+import static com.google.zxing.client.android.HttpHelper.ContentType.JSON;
+
 public class MapsActivity extends Fragment implements OnMapReadyCallback {
 
     private GoogleMap mMap;
@@ -167,9 +169,9 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
     public void searchLocation(View v, Location myLocation) {
         if (myLocation != null) {
             LatLng userLocation = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
-            String url = new StringBuilder().append(getResources().getString(R.string.google_places_url))
-                    .append(myLocation.getLatitude()).append("%2C").append(myLocation.getLongitude()).append("&types=grocery_or_supermarket&radius=").append(mRange).append("&key=").
-                            append(getResources().getString(R.string.google_places_key)).toString();
+            String url = getResources().getString(R.string.google_places_url) +
+                    myLocation.getLatitude() + "%2C" + myLocation.getLongitude() + "&types=grocery_or_supermarket&radius=" + mRange + "&key=" +
+                    getResources().getString(R.string.google_places_key);
 
             AsyncHttpClient client = new AsyncHttpClient();
 
@@ -209,7 +211,7 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
                                         markerLocation.setLongitude(marker.getPosition().longitude);
 
                                         mDistance = distanceBetween(mLocation, markerLocation);
-                                        if (mDistance <= 500) {
+                                        if (mDistance <= 5000) {
                                             LatLng latLng = new LatLng(marker.getPosition().latitude,
                                                     marker.getPosition().longitude);
                                             SuperMarketWrapper wrapper = mSuperMarkertWrapperMap.get(latLng);
