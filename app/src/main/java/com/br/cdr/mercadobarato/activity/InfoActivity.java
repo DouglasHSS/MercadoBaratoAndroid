@@ -28,6 +28,10 @@ public class InfoActivity extends Fragment {
 //        getActivity().setTitle("Menu 3");
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
 
 //    @Override
