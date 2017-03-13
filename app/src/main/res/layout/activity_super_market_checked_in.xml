@@ -27,18 +27,35 @@
             app:roundedCorners="true" />
 
         <com.beardedhen.androidbootstrap.BootstrapEditText
-            android:id="@+id/edit_product_code"
+            android:id="@+id/market_name"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_below="@id/btn_scan_barcode"
+            android:layout_below="@+id/btn_scan_barcode"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="20dp"
             android:height="35dp"
+            android:focusable="false"
+            app:bootstrapBrand="info"
+            app:bootstrapSize="md"
+            app:roundedCorners="true" />
+
+        <com.beardedhen.androidbootstrap.BootstrapEditText
+            android:id="@+id/edit_product_code"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/market_name"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="20dp"
+            android:height="35dp"
+            android:focusable="false"
             android:hint="@string/product_code"
             app:bootstrapBrand="info"
             app:bootstrapSize="md"
             app:roundedCorners="true" />
+
+
 
         <com.beardedhen.androidbootstrap.BootstrapEditText
             android:id="@+id/edit_product_price"
