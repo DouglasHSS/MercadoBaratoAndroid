@@ -12,15 +12,14 @@ public class ProductWrapper implements Serializable {
 
     private String bar_code;
     private String description;
-    private double price;
+    private String price;
 
     public String getBar_code() {
         return bar_code;
     }
 
-    public ProductWrapper setBar_code(String bar_code) {
+    public void setBar_code(String bar_code) {
         this.bar_code = bar_code;
-        return this;
     }
 
     public String getDescription() {
@@ -32,11 +31,11 @@ public class ProductWrapper implements Serializable {
         return this;
     }
 
-    public double getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public ProductWrapper setPrice(double price) {
+    public ProductWrapper setPrice(String price) {
         this.price = price;
         return this;
     }

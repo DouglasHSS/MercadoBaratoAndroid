@@ -1,0 +1,49 @@
+<resources>
+    <string name="app_name">Mercado Barato</string>
+    <string name="all_app_name">Mercado Barato</string>
+    <string name="scan_barcode">Scanear Produto</string>
+    <string name="product_code">Codigo do Produto</string>
+    <string name="product_price">Preço do Produto</string>
+    <string name="product_description">Descrição do Produto</string>
+    <string name="save_product">Cadastrar</string>
+    <string name="add_product_cart">Adicioanr Produto</string>
+    <string name="search">Procurar Mercado</string>
+    <string name="title_activity_navigation_menu">NavigationMenuActivity</string>
+
+    <string name="mapMenu">Check-in</string>
+    <string name="listMenu">Lista de Compras</string>
+    <string name="productPrice">Preço dos Produtos</string>
+    <string name="profile">Perfil</string>
+
+    <string name="loading">Loading...</string>
+    <string name="waiting">Espere..</string>
+    <string name="locationNotFound">Localização Não encontrada</string>
+    <string name="checkInFailed">Please go to a super market to check-in</string>
+    <string name="checkedIn">Ola! Você fez o Check-in em</string>
+    <string name="productsUpdateMessage">Por favor nos ajude cadastrando novos produtos.</string>
+    <string name="placesNotFound">Nenhum super mercado proximo.</string>
+
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="name">Nome</string>
+    <string name="confirm_password">Confirmar Senha</string>
+    <string name="register">Registrar</string>
+    <string name="login">Login</string>
+    <string name="sign_up">Sign up</string>
+    <string name="password">Senha</string>
+    <string name="create_account">Criar Conta</string>
+    <string name="userLoc">Você esta aqui!</string>
+    <string name="exit">Exit</string>
+    <string name="validateFormLogin">Favor preencher todos os campos.</string>
+    <string name="validatePermissions">Para usar esse APP é preciso aceitar as permissões.</string>
+    <string name="validateLoginSenha">Login ou senha incorretos.</string>
+    <string name="username">Username</string>
+    <string name="email">Email</string>
+    <string name="validatePasswordEquals">Senha não confere</string>
+    <string name="compareProductsPrice">Compare Products Prices</string>
+    <string name="title_activity_compare_prices_form">ComparePricesForm</string>
+    <string name="title_activity_compare_price_form_fragment">Compare Price Form</string>
+</resources>
