@@ -6,13 +6,13 @@ import java.io.Serializable;
  * Created by clebr on 11/03/2017.
  */
 
-public class ProductWrapper implements Serializable {
+public class Product implements Serializable {
 
     private static final long serialVersionUID = 21L;
 
     private String bar_code;
     private String description;
-    private String price;
+//    private String price;
 
     public String getBar_code() {
         return bar_code;
@@ -26,17 +26,17 @@ public class ProductWrapper implements Serializable {
         return description;
     }
 
-    public ProductWrapper setDescription(String description) {
+    public Product setDescription(String description) {
         this.description = description;
         return this;
     }
 
-    public String getPrice() {
-        return price;
-    }
-
-    public ProductWrapper setPrice(String price) {
-        this.price = price;
-        return this;
-    }
+//    public String getPrice() {
+//        return price;
+//    }
+//
+//    public Product setPrice(String price) {
+//        this.price = price;
+//        return this;
+//    }
 }
