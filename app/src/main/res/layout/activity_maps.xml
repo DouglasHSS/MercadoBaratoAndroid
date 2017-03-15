@@ -25,7 +25,20 @@
         <com.crystal.crystalrangeseekbar.widgets.CrystalSeekbar
             android:id="@+id/rangeSeekbar1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            app:bar_color="@color/colorPrimary"
+            app:bar_highlight_color="@color/colorPrimaryDark"
+            app:corner_radius="10"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/max_distance_to_supermarkets"
+            android:fontFamily="sans-serif"
+            android:layout_below="@id/rangeSeekbar1"
+            android:textSize="12dp"
+            android:layout_marginTop="3dp"
+            android:layout_centerHorizontal="true"/>
 
         <TextView
             android:id="@+id/textMin1"
@@ -33,7 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/rangeSeekbar1"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="3dp"
             android:text="1"
             android:textColor="#000"
             android:textSize="16dp" />
@@ -63,7 +76,8 @@
             app:bootstrapSize="lg"
             app:buttonMode="regular"
             app:roundedCorners="true"
-            app:showOutline="false" />
+            app:showOutline="false"
+            android:layout_marginTop="7dp"/>
     </RelativeLayout>
 
 </LinearLayout>

@@ -84,6 +84,8 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
 
         mRangebar.setMaxValue(25);
         mRangebar.setMinValue(1);
+        mRangebar.setMinStartValue(getPreferredDistance()).apply();
+
         // set listener
         mRangebar.setOnSeekbarChangeListener(new OnSeekbarChangeListener() {
             @Override
@@ -165,6 +167,7 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
                     searchLocation(v, mLocation);
                 }
             });
+            
         }
     }
 
@@ -276,6 +279,14 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putInt(getString(R.string.preferred_distance), preferredDistance);
         editor.commit();
+    }
+
+    public int getPreferredDistance(){
+        SharedPreferences sharedPref = getActivity()
+                .getSharedPreferences(getString(R.string.app_preferences),
+                        Context.MODE_PRIVATE);
+        int preferredDistance = sharedPref.getInt(getString(R.string.preferred_distance), 1000)/1000;
+        return preferredDistance ;
     }
 }
 

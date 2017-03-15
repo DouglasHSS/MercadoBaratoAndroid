@@ -47,4 +47,5 @@
     <string name="compareProductsPrice">Compare Products Prices</string>
     <string name="title_activity_compare_prices_form">ComparePricesForm</string>
     <string name="title_activity_compare_price_form_fragment">Compare Price Form</string>
+    <string name="max_distance_to_supermarkets">Max distance to supermarkets</string>
 </resources>
