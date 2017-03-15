@@ -33,7 +33,6 @@ public class RegisterActivity extends AppCompatActivity {
     private BootstrapEditText name_field;
     private BootstrapEditText email_field;
     private BootstrapEditText password_field_register;
-    private BootstrapEditText confirm_password;
     private BootstrapButton registerButton;
     private ProgressDialog loading = null;
 
@@ -49,7 +48,6 @@ public class RegisterActivity extends AppCompatActivity {
         name_field = (BootstrapEditText) findViewById(R.id.name_field);
         email_field = (BootstrapEditText) findViewById(R.id.email_field);
         password_field_register = (BootstrapEditText) findViewById(R.id.password_field_register);
-        confirm_password = (BootstrapEditText) findViewById(R.id.confirm_password);
 
         registerButton = (BootstrapButton) findViewById(R.id.button_register);
         registerButton.setOnClickListener(new View.OnClickListener() {
@@ -84,14 +82,11 @@ public class RegisterActivity extends AppCompatActivity {
         String nameField = name_field.getText().toString();
         String emailField = email_field.getText().toString();
         String password = password_field_register.getText().toString();
-        String confirmPassword = confirm_password.getText().toString();
 
         if (nameField.length() == 0 || emailField.length() == 0
-                || password.length() == 0 || confirmPassword.length() == 0) {
+                || password.length() == 0 ) {
             Toast.makeText(RegisterActivity.this, R.string.validateFormLogin, Toast.LENGTH_LONG).show();
 
-        } else if (!password.equals(confirmPassword)) {
-            Toast.makeText(RegisterActivity.this, R.string.validatePasswordEquals, Toast.LENGTH_LONG).show();
         } else {
             loading.show();
 
