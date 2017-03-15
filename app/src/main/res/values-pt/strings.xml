@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Mercado Barato</string>
     <string name="all_app_name">Mercado Barato</string>
-    <string name="scan_barcode">Scanear Produto</string>
+    <string name="scan_barcode">Escanear Produto</string>
     <string name="product_code">Codigo do Produto</string>
     <string name="product_price">Preço do Produto</string>
     <string name="product_description">Descrição do Produto</string>
@@ -15,7 +15,7 @@
     <string name="productPrice">Preço dos Produtos</string>
     <string name="profile">Perfil</string>
 
-    <string name="loading">Loading...</string>
+    <string name="loading">Carregando...</string>
     <string name="waiting">Espere..</string>
     <string name="locationNotFound">Localização Não encontrada</string>
     <string name="checkInFailed">Please go to a super market to check-in</string>
@@ -31,19 +31,19 @@
     <string name="name">Nome</string>
     <string name="confirm_password">Confirmar Senha</string>
     <string name="register">Registrar</string>
-    <string name="login">Login</string>
-    <string name="sign_up">Sign up</string>
+    <string name="login">Usuário</string>
+    <string name="sign_up">Cadastrar</string>
     <string name="password">Senha</string>
     <string name="create_account">Criar Conta</string>
     <string name="userLoc">Você esta aqui!</string>
-    <string name="exit">Exit</string>
+    <string name="exit">Sair</string>
     <string name="validateFormLogin">Favor preencher todos os campos.</string>
     <string name="validatePermissions">Para usar esse APP é preciso aceitar as permissões.</string>
     <string name="validateLoginSenha">Login ou senha incorretos.</string>
-    <string name="username">Username</string>
+    <string name="username">Usuário</string>
     <string name="email">Email</string>
     <string name="validatePasswordEquals">Senha não confere</string>
-    <string name="compareProductsPrice">Compare Products Prices</string>
+    <string name="compareProductsPrice">Comparar preços</string>
     <string name="title_activity_compare_prices_form">ComparePricesForm</string>
     <string name="title_activity_compare_price_form_fragment">Compare Price Form</string>
 </resources>
