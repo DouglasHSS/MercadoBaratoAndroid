@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Mercado Barato</string>
+    <string name="app_preferences">MercadoBaratoPreferences</string>
+    <string name="preferred_distance">preferredDistance</string>
     <string name="all_app_name">Mercado Barato</string>
     <string name="scan_barcode">Scan Product</string>
     <string name="product_code">Product Code</string>

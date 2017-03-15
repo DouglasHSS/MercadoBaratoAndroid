@@ -3,6 +3,7 @@ package com.br.cdr.mercadobarato.activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
@@ -48,6 +49,7 @@ import java.util.Map;
 
 import cz.msebera.android.httpclient.Header;
 
+import static android.content.Context.*;
 import static com.google.zxing.client.android.HttpHelper.ContentType.JSON;
 
 public class MapsActivity extends Fragment implements OnMapReadyCallback {
@@ -97,7 +99,7 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
             public void finalValue(Number value) {
                 Log.d("CRS=>", String.valueOf(value));
                 mRange = (value.intValue() * 1000);
-
+                setPreferredDistance(mRange);
             }
         });
 
@@ -148,7 +150,7 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
             if (!mMap.isMyLocationEnabled())
                 mMap.setMyLocationEnabled(true);
 
-            LocationManager lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+            LocationManager lm = (LocationManager) getActivity().getSystemService(LOCATION_SERVICE);
             mLocation = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
             if (mLocation == null) {
@@ -212,6 +214,7 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
 
                                         mDistance = distanceBetween(mLocation, markerLocation);
                                         if (mDistance <= 5000) {
+
                                             LatLng latLng = new LatLng(marker.getPosition().latitude,
                                                     marker.getPosition().longitude);
                                             SuperMarketWrapper wrapper = mSuperMarkertWrapperMap.get(latLng);
@@ -266,7 +269,14 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
         return d;
     }
 
-
+    public void setPreferredDistance(int preferredDistance){
+        SharedPreferences sharedPref = getActivity()
+                                       .getSharedPreferences(getString(R.string.app_preferences),
+                                                             Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putInt(getString(R.string.preferred_distance), preferredDistance);
+        editor.commit();
+    }
 }
 
 
