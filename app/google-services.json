@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "45712521109",
+    "firebase_url": "https://double-aleph-159014.firebaseio.com",
+    "project_id": "double-aleph-159014",
+    "storage_bucket": "double-aleph-159014.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:45712521109:android:dffd169882a714a4",
+        "android_client_info": {
+          "package_name": "com.br.cdr.mercadobarato"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "45712521109-6a60s5vj2lai6gkf9g4vkaq3u6vo7esn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.br.cdr.mercadobarato",
+            "certificate_hash": "d8f2c1ee24d14e510512ebdc1ac8169ffeb500aa"
+          }
+        },
+        {
+          "client_id": "45712521109-r4dp1v8n25pcj6e2nap813veoi2j3h28.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWKJWhrcs2O5ypwwB-Xi5hl9Xi2Qk2Sbg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "45712521109-r4dp1v8n25pcj6e2nap813veoi2j3h28.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

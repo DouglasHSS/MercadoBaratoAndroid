@@ -25,10 +25,10 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="70dp"
-            android:layout_marginRight="10dp"
             android:layout_marginBottom="20dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="70dp"
             android:hint="@string/login"
             android:inputType="textPersonName"
             app:bootstrapBrand="info"
@@ -41,9 +41,9 @@
             android:layout_height="45dp"
             android:layout_below="@id/login_field"
             android:layout_centerHorizontal="true"
-            android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:hint="@string/password"
             android:inputType="textWebPassword"
             app:bootstrapBrand="info"
@@ -67,7 +67,8 @@
             app:bootstrapSize="xl"
             app:buttonMode="regular"
             app:roundedCorners="true"
-            app:showOutline="false" />
+            app:showOutline="false"
+            tools:ignore="RtlHardcoded" />
 
         <com.beardedhen.androidbootstrap.BootstrapButton
             android:id="@+id/btn_signup"
@@ -84,6 +85,28 @@
             app:buttonMode="regular"
             app:roundedCorners="true"
             app:showOutline="false" />
+
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/loginButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:padding="12dp"
+            android:paddingBottom="20dp"
+            android:paddingTop="20dp"
+
+            android:layout_below="@+id/btn_signup"
+            android:layout_centerHorizontal="true" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:indeterminate="true"
+            android:visibility="gone" />
 
     </RelativeLayout>
 

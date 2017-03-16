@@ -22,6 +22,7 @@
     <string name="checkedIn">Ola! Você fez o Check-in em</string>
     <string name="productsUpdateMessage">Por favor nos ajude cadastrando novos produtos.</string>
     <string name="placesNotFound">Nenhum super mercado proximo.</string>
+    <string name="connect_with_facebook">Login com Facebook</string>
 
 
     <string name="navigation_drawer_open">Open navigation drawer</string>

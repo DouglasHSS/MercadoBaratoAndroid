@@ -4,6 +4,8 @@
     <string name="google_places_url">https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=</string>
     <string name="google_places_result_json_key">results</string>
     <string name="market_wrapper_key">marketWrapper</string>
+    <string name="facebook_app_id">1846874192252585</string>
+    <string name="facebook_app_secret">760cd65b0b8a5e910efbae645f0290d5</string>
 
 
     <string name="default_range">20</string>

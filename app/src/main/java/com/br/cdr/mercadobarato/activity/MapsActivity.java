@@ -67,6 +67,8 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
+
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.activity_maps, container, false);
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);

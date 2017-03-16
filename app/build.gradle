@@ -12,6 +12,9 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -37,7 +40,15 @@ dependencies {
     compile 'cz.msebera.android:httpclient:4.3.6'
     compile 'com.android.support:support-v4:24.2.1'
     compile 'com.android.support:recyclerview-v7:24.2.1'
-    compile 'com.android.support.constraint:constraint-layout:+'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'junit:junit:4.12'
     compile 'com.tarun0.zxing-standalone:zxing-standalone:1.0.0'
+    compile 'com.google.firebase:firebase-auth:10.2.0'
+    compile 'com.google.firebase:firebase-database:9.6.1'
+    compile 'com.google.firebase:firebase-storage:9.6.1'
+    compile 'com.facebook.android:facebook-android-sdk:[4,5)'
 }
+
+
+
+apply plugin: 'com.google.gms.google-services'

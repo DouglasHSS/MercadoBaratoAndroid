@@ -7,6 +7,9 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialogFragment;
 import android.content.DialogInterface;
 
+import com.facebook.login.LoginManager;
+import com.google.firebase.auth.FirebaseAuth;
+
 import static android.os.Build.VERSION_CODES.N;
 
 /**
@@ -40,6 +43,8 @@ public class ExitAppDialog extends AppCompatDialogFragment implements DialogInte
     public void onClick(DialogInterface dialog, int which) {
         if (which == DialogInterface.BUTTON_POSITIVE && listener != null) {
             listener.onExit();
+            FirebaseAuth.getInstance().signOut();
+            LoginManager.getInstance().logOut();
         }
     }
 

@@ -1,6 +1,7 @@
 package com.br.cdr.mercadobarato.activity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -19,6 +20,10 @@ import com.br.cdr.mercadobarato.activity.dummy.DummyContent;
 import com.br.cdr.mercadobarato.model.UserWrapper;
 import com.br.cdr.mercadobarato.util.ExitAppDialog;
 import com.br.cdr.mercadobarato.util.Utils;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.facebook.login.LoginManager;
+
 
 public class NavigationMenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, ExitAppDialog.ExitListener, CompareProductsFragment.OnListFragmentInteractionListener {
@@ -32,6 +37,7 @@ public class NavigationMenuActivity extends AppCompatActivity
         setContentView(R.layout.activity_navigation_menu);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
@@ -49,10 +55,21 @@ public class NavigationMenuActivity extends AppCompatActivity
 
 //        logged_user = (TextView) findViewById(R.id.logged_user);
         Intent intent = getIntent();
+
         user = (UserWrapper) intent.getSerializableExtra("user");
-        Log.i("userLogado", "anme " + user.getFirst_name());
-//        logged_user = (TextView) drawer.findViewById(R.id.logged_user);
-//        logged_user.setText(user.getFirst_name());
+        if(user != null){
+            Log.i("userLogado", "anme " + user.getFirst_name());
+        }
+
+        FirebaseUser facebookUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (facebookUser != null) {
+            String name = facebookUser.getDisplayName();
+            String email = facebookUser.getEmail();
+            Uri photoUrl = facebookUser.getPhotoUrl();
+            String uid = facebookUser.getUid();
+
+        }
 
 
     }

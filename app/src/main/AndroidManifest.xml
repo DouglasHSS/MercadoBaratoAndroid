@@ -23,13 +23,14 @@
         android:name="android.support.multidex.MultiDexApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        tools:replace="android:label"
         android:label="@string/all_app_name"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:replace="android:label">
         <activity
-            android:name=".activity.MainActivity">
+            android:name=".activity.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -48,6 +49,9 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
 
         <!-- <activity -->
         <!-- android:name=".activity.MapsActivity" -->
@@ -57,7 +61,8 @@
         <!-- android:value="com.br.cdr.mercadobarato.activity.MainActivity" /> -->
         <!-- </activity> -->
         <activity
-            android:name=".activity.RegisterActivity" />
+            android:name=".activity.RegisterActivity"
+            android:screenOrientation="portrait" />
         <!-- <activity android:name=".activity.HomeActivity" /> -->
         <!-- <activity android:name=".InfoActivity" /> -->
         <activity
