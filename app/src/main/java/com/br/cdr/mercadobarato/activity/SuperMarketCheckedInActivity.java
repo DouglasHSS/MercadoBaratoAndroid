@@ -3,6 +3,7 @@ package com.br.cdr.mercadobarato.activity;
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -55,6 +56,7 @@ public class SuperMarketCheckedInActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         String[] permissoes = new String[]{
                 Manifest.permission.CAMERA
         };

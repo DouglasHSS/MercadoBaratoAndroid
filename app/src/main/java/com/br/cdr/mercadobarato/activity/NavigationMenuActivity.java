@@ -69,6 +69,7 @@ public class NavigationMenuActivity extends AppCompatActivity
             Uri photoUrl = facebookUser.getPhotoUrl();
             String uid = facebookUser.getUid();
 
+
         }
 
 
