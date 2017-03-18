@@ -15,19 +15,39 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.br.cdr.mercadobarato.R;
+import com.br.cdr.mercadobarato.model.SuperMarketWrapper;
+import com.br.cdr.mercadobarato.util.GooglePlacesJsonParser;
 import com.br.cdr.mercadobarato.util.Utils;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.List;
+
+import cz.msebera.android.httpclient.Header;
 
 import static android.content.Context.LOCATION_SERVICE;
+import static com.br.cdr.mercadobarato.util.Utils.distanceBetween;
 
 public class ComparePriceFormFragment extends Fragment implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
 
     private GoogleApiClient googleApiClient;
+    private List<SuperMarketWrapper> mMarketList;
+    private HashMap<LatLng, SuperMarketWrapper> mSuperMarkertWrapperMap;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -102,6 +122,7 @@ public class ComparePriceFormFragment extends Fragment implements GoogleApiClien
             Location lastLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
             Log.i("latitude", "" + lastLocation.getLatitude());
             Log.i("longitude", "" + lastLocation.getLongitude());
+            searchGrocerys(lastLocation);
 
 
         }
@@ -116,4 +137,76 @@ public class ComparePriceFormFragment extends Fragment implements GoogleApiClien
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         pararConexaoComGoogleApi();
     }
+
+
+    public void searchGrocerys(final Location lastLocation) {
+
+        double latitude = lastLocation.getLatitude();
+        double longitude = lastLocation.getLongitude();
+        int mRange = Utils.getPreferredDistance(this.getActivity());
+        LatLng userLocation = new LatLng(latitude, longitude);
+        String url = getResources().getString(R.string.google_places_url) +
+                latitude + "%2C" + longitude + "&types=grocery_or_supermarket&radius=" + mRange + "&key=" +
+                getResources().getString(R.string.google_places_key);
+
+        AsyncHttpClient client = new AsyncHttpClient();
+
+        client.get(url,
+                new JsonHttpResponseHandler() {
+                    /**
+                     * verifica se a requisição obteve sucesso ou falha, em caso de sucesso
+                     * a listRestultsActiviy é chamada com os objetos obtidos no JSON em formato
+                     * de String
+                     *
+                     * @param jsonObject
+                     */
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject jsonObject) {
+                        mMarketList = GooglePlacesJsonParser.parse(jsonObject.toString());
+                        Marker marker;
+                        mSuperMarkertWrapperMap = new HashMap<LatLng, SuperMarketWrapper>();
+                        if (mMarketList != null) {
+                            for (SuperMarketWrapper superMarket : mMarketList) {
+//                                mSuperMarkertWrapperMap.put(marker.getPosition(), superMarket);
+                            }
+
+                            Double mDistance;
+//                            Location markerLocation = new Location("");
+//                            markerLocation.setLatitude(marker.getPosition().latitude);
+//                            markerLocation.setLongitude(marker.getPosition().longitude);
+
+//                            mDistance = distanceBetween(lastLocation, markerLocation);
+//                            if (mDistance <= 5000) {
+
+//                                LatLng latLng = new LatLng(marker.getPosition().latitude,
+//                                        marker.getPosition().longitude);
+//                                SuperMarketWrapper wrapper = mSuperMarkertWrapperMap.get(latLng);
+//                                Intent it = new Intent(getActivity(), SuperMarketCheckedInActivity.class);
+//                                it.putExtra("superMarkerWrapper", wrapper);
+//                                getActivity().startActivity(it);
+
+                                           /* Toast.makeText(getActivity(), marker.getTitle(),
+                                                    Toast.LENGTH_LONG).show();*/
+
+//                            } else {
+//                                Toast.makeText(getActivity(), getResources().getString(R.string.checkInFailed),
+//                                        Toast.LENGTH_LONG).show();
+//
+//                            }
+
+                        }
+                    }
+
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject error) {
+                        Toast.makeText(getActivity(), getResources().getString(R.string.placesNotFound), Toast.LENGTH_LONG).show();
+                        Log.e("RJGXM", statusCode + " " + throwable.getMessage());
+
+                    }
+                });
+
+
+    }
+
 }

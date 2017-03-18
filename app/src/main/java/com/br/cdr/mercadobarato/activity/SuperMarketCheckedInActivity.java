@@ -38,7 +38,7 @@ import cz.msebera.android.httpclient.protocol.HTTP;
 
 public class SuperMarketCheckedInActivity extends AppCompatActivity {
 
-    private final String ENCODING = "application/json";
+    private final String ENCODING = "application/json; charset=utf-8";
     private BootstrapButton scanProduct;
     private SuperMarketWrapper superMarketWrapper;
     private BootstrapButton saveProduct;
@@ -52,6 +52,7 @@ public class SuperMarketCheckedInActivity extends AppCompatActivity {
 
 
     private ProgressDialog loading = null;
+    private String barCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,7 +108,7 @@ public class SuperMarketCheckedInActivity extends AppCompatActivity {
                 loading.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 
                 if (haveProduct) {
-                    String barCode = editProductCode.getText().toString();
+                    barCode = editProductCode.getText().toString();
                     Log.d("barCode", "barCode: " + barCode);
 
                     updateProduct(barCode);
@@ -267,7 +268,8 @@ public class SuperMarketCheckedInActivity extends AppCompatActivity {
                 haveProduct = true;
                 Gson gson = new Gson();
                 SupermarketProduct supermarketProduct = gson.fromJson(String.valueOf(response), SupermarketProduct.class);
-                supermarketProduct.getProduct().getDescription();
+                editProductdescription.setEnabled(false);
+                editProductdescription.setText(supermarketProduct.getProduct().getDescription());
                 Log.i("statusCodeS", "" + statusCode);
             }
 

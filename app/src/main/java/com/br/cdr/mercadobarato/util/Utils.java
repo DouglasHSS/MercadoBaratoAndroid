@@ -1,8 +1,11 @@
 package com.br.cdr.mercadobarato.util;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -79,6 +82,42 @@ public class Utils {
             dialog.show();
 
         }
+    }
+
+    public static void setPreferredDistance(int preferredDistance, Activity activity) {
+        SharedPreferences sharedPref = activity
+                .getSharedPreferences(activity.getString(R.string.app_preferences),
+                        Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putInt(activity.getString(R.string.preferred_distance), preferredDistance);
+        editor.commit();
+    }
+
+    public static int getPreferredDistance(Activity activity) {
+        SharedPreferences sharedPref = activity
+                .getSharedPreferences(activity.getString(R.string.app_preferences),
+                        Context.MODE_PRIVATE);
+        int preferredDistance = sharedPref.getInt(activity.getString(R.string.preferred_distance), 1000) / 1000;
+        return preferredDistance;
+    }
+
+    public static double distanceBetween(Location l1, Location l2) {
+
+        double lat1 = l1.getLatitude();
+        double lon1 = l1.getLongitude();
+        double lat2 = l2.getLatitude();
+        double lon2 = l2.getLongitude();
+        double R = 6371; // km
+        double dLat = (lat2 - lat1) * Math.PI / 180;
+        double dLon = (lon2 - lon1) * Math.PI / 180;
+        lat1 = lat1 * Math.PI / 180;
+        lat2 = lat2 * Math.PI / 180;
+
+        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        double d = R * c * 1000;
+        return d;
     }
 
 
