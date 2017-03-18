@@ -1,9 +1,12 @@
 package com.br.cdr.mercadobarato.activity;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -18,6 +21,8 @@ import com.br.cdr.mercadobarato.util.Utils;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
+
+import static android.content.Context.LOCATION_SERVICE;
 
 public class ComparePriceFormFragment extends Fragment implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
@@ -39,6 +44,19 @@ public class ComparePriceFormFragment extends Fragment implements GoogleApiClien
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        LocationManager service = (LocationManager) getActivity().getSystemService(LOCATION_SERVICE);
+
+        // Verifica se o GPS está ativo
+        boolean enabled = service.isProviderEnabled(LocationManager.GPS_PROVIDER);
+
+        // Caso não esteja ativo abre um novo diálogo com as configurações para
+        // realizar se ativamento
+        if (!enabled) {
+            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            startActivity(intent);
+        }
+
 
         googleApiClient = new GoogleApiClient.Builder(getContext())
                 .addConnectionCallbacks(this) //Be aware of state of the connection
@@ -84,6 +102,7 @@ public class ComparePriceFormFragment extends Fragment implements GoogleApiClien
             Location lastLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
             Log.i("latitude", "" + lastLocation.getLatitude());
             Log.i("longitude", "" + lastLocation.getLongitude());
+
 
         }
     }

@@ -1,7 +1,6 @@
 package com.br.cdr.mercadobarato.activity;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
@@ -10,11 +9,11 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +22,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
-import com.br.cdr.mercadobarato.Manifest;
 import com.br.cdr.mercadobarato.R;
 import com.br.cdr.mercadobarato.model.SuperMarketWrapper;
 import com.br.cdr.mercadobarato.util.GooglePlacesJsonParser;
@@ -49,8 +47,7 @@ import java.util.Map;
 
 import cz.msebera.android.httpclient.Header;
 
-import static android.content.Context.*;
-import static com.google.zxing.client.android.HttpHelper.ContentType.JSON;
+import static android.content.Context.LOCATION_SERVICE;
 
 public class MapsActivity extends Fragment implements OnMapReadyCallback {
 
@@ -66,7 +63,6 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-
 
 
         // Inflate the layout for this fragment
@@ -87,6 +83,11 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
         mRangebar.setMaxValue(25);
         mRangebar.setMinValue(1);
         mRangebar.setMinStartValue(getPreferredDistance()).apply();
+
+        if (getPreferredDistance() != 0) {
+            mRange = (getPreferredDistance() * 1000);
+
+        }
 
         // set listener
         mRangebar.setOnSeekbarChangeListener(new OnSeekbarChangeListener() {
@@ -112,8 +113,21 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        LocationManager service = (LocationManager) getActivity().getSystemService(LOCATION_SERVICE);
+
+        // Verifica se o GPS está ativo
+        boolean enabled = service.isProviderEnabled(LocationManager.GPS_PROVIDER);
+
+        // Caso não esteja ativo abre um novo diálogo com as configurações para
+        // realizar se ativamento
+        if (!enabled) {
+            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            startActivity(intent);
+        }
+
     }
 
     @Override
@@ -169,7 +183,7 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
                     searchLocation(v, mLocation);
                 }
             });
-            
+
         }
     }
 
@@ -274,21 +288,21 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
         return d;
     }
 
-    public void setPreferredDistance(int preferredDistance){
+    public void setPreferredDistance(int preferredDistance) {
         SharedPreferences sharedPref = getActivity()
-                                       .getSharedPreferences(getString(R.string.app_preferences),
-                                                             Context.MODE_PRIVATE);
+                .getSharedPreferences(getString(R.string.app_preferences),
+                        Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putInt(getString(R.string.preferred_distance), preferredDistance);
         editor.commit();
     }
 
-    public int getPreferredDistance(){
+    public int getPreferredDistance() {
         SharedPreferences sharedPref = getActivity()
                 .getSharedPreferences(getString(R.string.app_preferences),
                         Context.MODE_PRIVATE);
-        int preferredDistance = sharedPref.getInt(getString(R.string.preferred_distance), 1000)/1000;
-        return preferredDistance ;
+        int preferredDistance = sharedPref.getInt(getString(R.string.preferred_distance), 1000) / 1000;
+        return preferredDistance;
     }
 }
 
