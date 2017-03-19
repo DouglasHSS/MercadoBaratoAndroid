@@ -4,6 +4,7 @@
     <string name="scan_barcode">Escanear Produto</string>
     <string name="product_code">Codigo do Produto</string>
     <string name="product_price">Preço do Produto</string>
+    <string name="add_product">Adicionar à Lista</string>
     <string name="product_description">Descrição do Produto</string>
     <string name="save_product">Cadastrar</string>
     <string name="add_product_cart">Adicioanr Produto</string>

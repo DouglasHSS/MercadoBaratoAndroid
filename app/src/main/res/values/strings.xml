@@ -6,6 +6,7 @@
     <string name="scan_barcode">Scan Product</string>
     <string name="product_code">Product Code</string>
     <string name="product_price">Product Price</string>
+    <string name="add_product">Add product to list</string>
     <string name="product_description">Product Description</string>
     <string name="save_product">Save Product</string>
     <string name="add_product_cart">Add product to shopping list</string>
