@@ -23,6 +23,7 @@ import com.br.cdr.mercadobarato.util.Utils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.facebook.login.LoginManager;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 
 public class NavigationMenuActivity extends AppCompatActivity
@@ -62,6 +63,12 @@ public class NavigationMenuActivity extends AppCompatActivity
         }
 
         FirebaseUser facebookUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        String refreshedToken = FirebaseInstanceId.getInstance().getToken();
+        if(refreshedToken!=null){
+            Log.d("FIREBASE", "Refreshed token: " + refreshedToken);
+        }
+
 
         if (facebookUser != null) {
             String name = facebookUser.getDisplayName();
@@ -131,6 +138,8 @@ public class NavigationMenuActivity extends AppCompatActivity
 
         if (itemId == R.id.checkin_menu) {
             fragmentClass = MapsActivity.class;
+        } else if (itemId == R.id.list_menu) {
+            fragmentClass = ListProductsActivity.class;
         } else if (itemId == R.id.add_products_menu) {
             fragmentClass = AddProductShoppingListActivity.class;
         } else if (itemId == R.id.list_menu) {

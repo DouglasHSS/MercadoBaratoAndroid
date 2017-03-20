@@ -7,6 +7,7 @@ import com.br.cdr.mercadobarato.model.Product;
 import com.br.cdr.mercadobarato.model.SuperMarketWrapper;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 /**
@@ -16,12 +17,12 @@ import java.util.ArrayList;
 public class Application extends MultiDexApplication {
 
     private SuperMarketWrapper checkedSuperMarket;
-    private ArrayList<Product> shoppingList;
+    private HashMap<String, Product> shoppingList;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        this.shoppingList = new ArrayList<Product>();
+        this.shoppingList = new HashMap<>();
     }
 
     public SuperMarketWrapper getCheckSuperMarket() {
@@ -33,10 +34,10 @@ public class Application extends MultiDexApplication {
     }
 
     public void addProductToShoppingList(Product product) {
-        this.shoppingList.add(product);
+        this.shoppingList.put(product.getBar_code(), product);
     }
 
-    public ArrayList<Product> getShoppingList() {
+    public HashMap<String, Product> getShoppingList() {
         return shoppingList;
     }
 }
