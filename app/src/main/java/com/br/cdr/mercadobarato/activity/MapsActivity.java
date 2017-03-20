@@ -1,8 +1,7 @@
 package com.br.cdr.mercadobarato.activity;
 
-import android.content.Context;
+
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
@@ -24,6 +23,7 @@ import android.widget.Toast;
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.br.cdr.mercadobarato.R;
 import com.br.cdr.mercadobarato.model.SuperMarketWrapper;
+import com.br.cdr.mercadobarato.util.Application;
 import com.br.cdr.mercadobarato.util.GooglePlacesJsonParser;
 import com.br.cdr.mercadobarato.util.Utils;
 import com.crystal.crystalrangeseekbar.interfaces.OnSeekbarChangeListener;
@@ -239,6 +239,8 @@ public class MapsActivity extends Fragment implements OnMapReadyCallback {
                                             LatLng latLng = new LatLng(marker.getPosition().latitude,
                                                     marker.getPosition().longitude);
                                             SuperMarketWrapper wrapper = mSuperMarkertWrapperMap.get(latLng);
+                                            Application application=(Application) getActivity().getApplication();
+                                            application.setCheckedSuperMarket(wrapper);
                                             Intent it = new Intent(getActivity(), SuperMarketCheckedInActivity.class);
                                             it.putExtra("superMarkerWrapper", wrapper);
                                             getActivity().startActivity(it);

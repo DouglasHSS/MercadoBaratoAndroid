@@ -48,4 +48,6 @@
     <string name="title_activity_compare_prices_form">ComparePricesForm</string>
     <string name="title_activity_compare_price_form_fragment">Compare Price Form</string>
     <string name="max_distance_to_supermarkets">Distância máxima dos supermercados</string>
+    <string name="product_not_found">Produto não cadastrado</string>
+    <string name="product_was_added">Produto adicionado na lista de compras</string>
 </resources>

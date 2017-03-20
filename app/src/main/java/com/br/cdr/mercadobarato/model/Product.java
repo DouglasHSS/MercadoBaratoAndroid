@@ -12,7 +12,6 @@ public class Product implements Serializable {
 
     private String bar_code;
     private String description;
-//    private String price;
 
     public String getBar_code() {
         return bar_code;
