@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.br.cdr.mercadobarato.R;
 import com.br.cdr.mercadobarato.activity.dummy.DummyContent;
+import com.br.cdr.mercadobarato.model.Product;
 import com.br.cdr.mercadobarato.model.UserWrapper;
 import com.br.cdr.mercadobarato.util.ExitAppDialog;
 import com.br.cdr.mercadobarato.util.Utils;
@@ -58,14 +59,14 @@ public class NavigationMenuActivity extends AppCompatActivity
         Intent intent = getIntent();
 
         user = (UserWrapper) intent.getSerializableExtra("user");
-        if(user != null){
+        if (user != null) {
             Log.i("userLogado", "anme " + user.getFirst_name());
         }
 
         FirebaseUser facebookUser = FirebaseAuth.getInstance().getCurrentUser();
 
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
-        if(refreshedToken!=null){
+        if (refreshedToken != null) {
             Log.d("FIREBASE", "Refreshed token: " + refreshedToken);
         }
 
@@ -147,7 +148,7 @@ public class NavigationMenuActivity extends AppCompatActivity
         } else if (itemId == R.id.profile_menu) {
             fragmentClass = InfoActivity.class;
         } else if (itemId == R.id.compare_products) {
-            fragmentClass = ComparePriceFormFragment.class;
+            fragmentClass = CompareProductsFragment.class;
         } else if (itemId == R.id.exit_menu) {
 
             ExitAppDialog dialog = new ExitAppDialog();
@@ -169,9 +170,8 @@ public class NavigationMenuActivity extends AppCompatActivity
         finish();
     }
 
-
     @Override
-    public void onListFragmentInteraction(DummyContent.DummyItem item) {
+    public void onListFragmentInteraction(Product item) {
 
     }
 }

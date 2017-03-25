@@ -1,8 +1,11 @@
 package com.br.cdr.mercadobarato.activity;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -17,6 +20,7 @@ import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.br.cdr.mercadobarato.R;
 import com.br.cdr.mercadobarato.model.Product;
 import com.br.cdr.mercadobarato.util.Application;
+import com.br.cdr.mercadobarato.util.Utils;
 import com.google.gson.Gson;
 import com.google.zxing.client.android.CaptureActivity;
 import com.loopj.android.http.AsyncHttpClient;
@@ -40,7 +44,14 @@ public class AddProductShoppingListActivity extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        View view =  inflater.inflate(R.layout.activity_add_product_shopping_list, container, false);
+        View view = inflater.inflate(R.layout.activity_add_product_shopping_list, container, false);
+
+        String[] permissoes = new String[]{
+                Manifest.permission.CAMERA
+        };
+
+        Utils.validatePermissions(getActivity(), 0, permissoes);
+
 
         scanProduct = (BootstrapButton) view.findViewById(R.id.btn_scan_barcode);
         addProductToList = (BootstrapButton) view.findViewById(R.id.btn_save_product);
@@ -54,6 +65,19 @@ public class AddProductShoppingListActivity extends Fragment {
         addProductToList.setOnClickListener(this.onAddProductToListBtnClick);
 
         return view;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        for (int result : grantResults) {
+            if (result == PackageManager.PERMISSION_DENIED) {
+                // Alguma permissão foi negada, agora é com você :-)
+                Utils.alertAndFinish(getActivity());
+                return;
+            }
+        }
+
     }
 
 
@@ -91,7 +115,7 @@ public class AddProductShoppingListActivity extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == SCAN_CODE_REQUEST & resultCode == Activity.RESULT_OK){
+        if (requestCode == SCAN_CODE_REQUEST & resultCode == Activity.RESULT_OK) {
             String barCode = data.getStringExtra("SCAN_RESULT");
             editProductCode.setText(barCode);
             fetchProduct(barCode);
@@ -102,7 +126,7 @@ public class AddProductShoppingListActivity extends Fragment {
 
     private void fetchProduct(String barCode) {
         String host = getResources().getString(R.string.mercado_barato_api);
-        String url = String.format("%sproducts/%s/",host, barCode);
+        String url = String.format("%sproducts/%s/", host, barCode);
 
         AsyncHttpClient client = new AsyncHttpClient();
 

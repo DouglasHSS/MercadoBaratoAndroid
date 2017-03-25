@@ -7,25 +7,27 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.br.cdr.mercadobarato.R;
-import com.br.cdr.mercadobarato.activity.CompareProductsFragment.OnListFragmentInteractionListener;
-import com.br.cdr.mercadobarato.activity.dummy.DummyContent.DummyItem;
+import com.br.cdr.mercadobarato.model.Product;
+import com.br.cdr.mercadobarato.util.OnListFragmentInteractionListener;
 
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
+ * {@link RecyclerView.Adapter} that can display a {@link Product} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
 public class MyProductItemRecyclerViewAdapter extends RecyclerView.Adapter<MyProductItemRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DummyItem> mValues;
+    private final List<Product> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public MyProductItemRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
+    public MyProductItemRecyclerViewAdapter(List<Product> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
+
+
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -37,8 +39,8 @@ public class MyProductItemRecyclerViewAdapter extends RecyclerView.Adapter<MyPro
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.mIdView.setText(mValues.get(position).getBar_code());
+        holder.mContentView.setText(mValues.get(position).getDescription());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,7 +63,7 @@ public class MyProductItemRecyclerViewAdapter extends RecyclerView.Adapter<MyPro
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
-        public DummyItem mItem;
+        public Product mItem;
 
         public ViewHolder(View view) {
             super(view);

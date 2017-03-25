@@ -13,8 +13,14 @@ import android.view.ViewGroup;
 import com.br.cdr.mercadobarato.R;
 import com.br.cdr.mercadobarato.activity.dummy.DummyContent;
 import com.br.cdr.mercadobarato.activity.dummy.DummyContent.DummyItem;
+import com.br.cdr.mercadobarato.model.Product;
+import com.br.cdr.mercadobarato.util.Application;
+import com.br.cdr.mercadobarato.util.OnListFragmentInteractionListener;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * A fragment representing a list of Items.
@@ -70,7 +76,20 @@ public class CompareProductsFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyProductItemRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            Application application = (Application) getActivity().getApplication();
+            HashMap<String, Product> shoppingList = application.getShoppingList();
+
+            List<Product> listItems = new ArrayList<>();
+            int i = 0;
+            for (Map.Entry<String, Product> entry : shoppingList.entrySet()) {
+                String key = entry.getKey();
+                Product value = entry.getValue();
+                listItems.add(value);
+                i++;
+
+            }
+
+            recyclerView.setAdapter(new MyProductItemRecyclerViewAdapter(listItems, mListener));
         }
         return view;
     }
@@ -93,18 +112,18 @@ public class CompareProductsFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
-    }
+//    /**
+//     * This interface must be implemented by activities that contain this
+//     * fragment to allow an interaction in this fragment to be communicated
+//     * to the activity and potentially other fragments contained in that
+//     * activity.
+//     * <p/>
+//     * See the Android Training lesson <a href=
+//     * "http://developer.android.com/training/basics/fragments/communicating.html"
+//     * >Communicating with Other Fragments</a> for more information.
+//     */
+//    public interface OnListFragmentInteractionListener {
+//        // TODO: Update argument type and name
+//        void onListFragmentInteraction(Product item);
+//    }
 }
