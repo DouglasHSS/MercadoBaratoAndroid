@@ -4,29 +4,28 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/checkin_menu"
-            android:icon="@android:drawable/ic_menu_mapmode"
-            android:title="@string/mapMenu" />
-        <item
-            android:id="@+id/list_menu"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/listMenu" />
+            android:icon="@drawable/ic_room_black_24dp"
+            android:title="hauheuahuhueaue" />
         <item
             android:id="@+id/add_products_menu"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_add_circle_black_24dp"
             android:title="@string/add_product" />
-
+        <item
+            android:id="@+id/list_menu"
+            android:icon="@drawable/ic_receipt_black_24dp"
+            android:title="@string/listMenu" />
         <item
             android:id="@+id/compare_products"
-            android:icon="@drawable/ic_menu_share"
+            android:icon="@drawable/ic_monetization_on_black_24dp"
             android:title="@string/compareProductsPrice" />
 
         <item
             android:id="@+id/profile_menu"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_person_black_24dp"
             android:title="@string/profile" />
         <item
             android:id="@+id/exit_menu"
-            android:icon="@drawable/ic_close_light"
+            android:icon="@drawable/ic_power_settings_new_black_24dp"
             android:title="@string/exit" />
 
     </group>
