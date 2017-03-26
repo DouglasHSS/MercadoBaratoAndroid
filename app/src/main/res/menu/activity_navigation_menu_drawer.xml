@@ -5,7 +5,7 @@
         <item
             android:id="@+id/checkin_menu"
             android:icon="@drawable/ic_room_black_24dp"
-            android:title="hauheuahuhueaue" />
+            android:title="@string/mapMenu" />
         <item
             android:id="@+id/add_products_menu"
             android:icon="@drawable/ic_add_circle_black_24dp"
