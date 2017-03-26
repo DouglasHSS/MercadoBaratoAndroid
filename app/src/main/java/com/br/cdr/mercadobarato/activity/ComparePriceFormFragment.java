@@ -41,6 +41,7 @@ import cz.msebera.android.httpclient.Header;
 
 import static android.content.Context.LOCATION_SERVICE;
 import static com.br.cdr.mercadobarato.util.Utils.distanceBetween;
+import static com.br.cdr.mercadobarato.util.Utils.getPreferredDistance;
 
 public class ComparePriceFormFragment extends Fragment implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
@@ -143,11 +144,13 @@ public class ComparePriceFormFragment extends Fragment implements GoogleApiClien
 
         double latitude = lastLocation.getLatitude();
         double longitude = lastLocation.getLongitude();
-        int mRange = Utils.getPreferredDistance(this.getActivity());
+        int mRange = Utils.getPreferredDistance(getActivity()) * 1000;
         LatLng userLocation = new LatLng(latitude, longitude);
         String url = getResources().getString(R.string.google_places_url) +
                 latitude + "%2C" + longitude + "&types=grocery_or_supermarket&radius=" + mRange + "&key=" +
                 getResources().getString(R.string.google_places_key);
+
+        Log.i("urlMAPS", url);
 
         AsyncHttpClient client = new AsyncHttpClient();
 
@@ -163,11 +166,14 @@ public class ComparePriceFormFragment extends Fragment implements GoogleApiClien
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject jsonObject) {
                         mMarketList = GooglePlacesJsonParser.parse(jsonObject.toString());
+                        Log.i("markets", jsonObject.toString());
                         Marker marker;
-                        mSuperMarkertWrapperMap = new HashMap<LatLng, SuperMarketWrapper>();
+                        mSuperMarkertWrapperMap = new HashMap<>();
                         if (mMarketList != null) {
                             for (SuperMarketWrapper superMarket : mMarketList) {
 //                                mSuperMarkertWrapperMap.put(marker.getPosition(), superMarket);
+                                Log.i("marketId", superMarket.getID());
+
                             }
 
                             Double mDistance;

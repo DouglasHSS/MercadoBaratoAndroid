@@ -16,19 +16,18 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.br.cdr.mercadobarato.R;
-import com.br.cdr.mercadobarato.activity.dummy.DummyContent;
 import com.br.cdr.mercadobarato.model.Product;
 import com.br.cdr.mercadobarato.model.UserWrapper;
 import com.br.cdr.mercadobarato.util.ExitAppDialog;
+import com.br.cdr.mercadobarato.util.OnListFragmentInteractionListener;
 import com.br.cdr.mercadobarato.util.Utils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.facebook.login.LoginManager;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 
 public class NavigationMenuActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, ExitAppDialog.ExitListener, CompareProductsFragment.OnListFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener, ExitAppDialog.ExitListener, OnListFragmentInteractionListener {
 
     TextView logged_user;
     UserWrapper user;
@@ -148,7 +147,7 @@ public class NavigationMenuActivity extends AppCompatActivity
         } else if (itemId == R.id.profile_menu) {
             fragmentClass = InfoActivity.class;
         } else if (itemId == R.id.compare_products) {
-            fragmentClass = CompareProductsFragment.class;
+            fragmentClass = ComparePriceFormFragment.class;
         } else if (itemId == R.id.exit_menu) {
 
             ExitAppDialog dialog = new ExitAppDialog();

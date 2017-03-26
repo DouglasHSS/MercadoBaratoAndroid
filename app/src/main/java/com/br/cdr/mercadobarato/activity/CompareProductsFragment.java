@@ -11,8 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.br.cdr.mercadobarato.R;
-import com.br.cdr.mercadobarato.activity.dummy.DummyContent;
-import com.br.cdr.mercadobarato.activity.dummy.DummyContent.DummyItem;
 import com.br.cdr.mercadobarato.model.Product;
 import com.br.cdr.mercadobarato.util.Application;
 import com.br.cdr.mercadobarato.util.OnListFragmentInteractionListener;

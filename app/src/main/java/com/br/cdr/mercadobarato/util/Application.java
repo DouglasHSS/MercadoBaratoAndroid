@@ -5,6 +5,7 @@ import android.support.multidex.MultiDexApplication;
 import com.br.cdr.mercadobarato.R;
 import com.br.cdr.mercadobarato.model.Product;
 import com.br.cdr.mercadobarato.model.SuperMarketWrapper;
+import com.br.cdr.mercadobarato.model.UserWrapper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,6 +19,7 @@ public class Application extends MultiDexApplication {
 
     private SuperMarketWrapper checkedSuperMarket;
     private HashMap<String, Product> shoppingList;
+    private UserWrapper userWrapper;
 
     @Override
     public void onCreate() {
@@ -40,4 +42,14 @@ public class Application extends MultiDexApplication {
     public HashMap<String, Product> getShoppingList() {
         return shoppingList;
     }
+
+    public UserWrapper getUserWrapper() {
+        return userWrapper;
+    }
+
+    public UserWrapper setUserWrapper(UserWrapper userWrapper) {
+        return userWrapper;
+    }
+
+
 }

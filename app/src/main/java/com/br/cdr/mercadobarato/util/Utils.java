@@ -90,7 +90,7 @@ public class Utils {
                         Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putInt(activity.getString(R.string.preferred_distance), preferredDistance);
-        editor.commit();
+        editor.apply();
     }
 
     public static int getPreferredDistance(Activity activity) {
