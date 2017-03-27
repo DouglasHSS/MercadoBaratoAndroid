@@ -23,7 +23,6 @@ public class MyProductItemRecyclerViewAdapter extends RecyclerView.Adapter<MyPro
 
     private final List<Product> mValues;
     private final OnListFragmentInteractionListener mListener;
-    private String message;
 
 
     public MyProductItemRecyclerViewAdapter(List<Product> items, OnListFragmentInteractionListener listener) {
