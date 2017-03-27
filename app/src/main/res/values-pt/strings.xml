@@ -50,4 +50,6 @@
     <string name="max_distance_to_supermarkets">Distância máxima dos supermercados</string>
     <string name="product_not_found">Produto não cadastrado</string>
     <string name="product_was_added">Produto adicionado na lista de compras</string>
+
+    <string name="register_screen_title">Cadastre um novo usuário</string>
 </resources>

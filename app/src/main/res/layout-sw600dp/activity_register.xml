@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_register"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/azul_logo"
+    tools:context="com.br.cdr.mercadobarato.activity.RegisterActivity">
+
+    <include
+        android:id="@+id/main_bar"
+        layout="@layout/main_bar" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:layout_below="@+id/main_bar"
+        android:id="@+id/screen_title"
+        android:text="@string/register_screen_title"
+        android:textSize="50sp"
+        android:textAlignment="center"/>
+
+    <com.beardedhen.androidbootstrap.BootstrapEditText
+        android:id="@+id/name_field"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="75dp"
+        android:layout_marginRight="75dp"
+        android:hint="@string/name"
+        android:inputType="textPersonName"
+        app:roundedCorners="true"
+        app:bootstrapSize="xl"
+        android:layout_marginTop="50dp"
+        android:layout_below="@+id/screen_title"/>
+
+
+    <com.beardedhen.androidbootstrap.BootstrapEditText
+        android:id="@+id/username_field_register"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="75dp"
+        android:layout_marginRight="75dp"
+        android:hint="@string/username"
+        android:inputType="textPersonName"
+        app:roundedCorners="true"
+        app:bootstrapSize="xl"
+        android:layout_marginTop="40dp"
+        android:layout_below="@+id/name_field"
+        android:layout_alignParentEnd="true" />
+
+    <com.beardedhen.androidbootstrap.BootstrapEditText
+        android:id="@+id/email_field"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="75dp"
+        android:layout_marginRight="75dp"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
+        app:roundedCorners="true"
+        app:bootstrapSize="xl"
+        android:layout_marginTop="40dp"
+        android:layout_below="@+id/username_field_register"/>
+
+    <com.beardedhen.androidbootstrap.BootstrapEditText
+        android:id="@+id/password_field_register"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="75dp"
+        android:layout_marginRight="75dp"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        app:roundedCorners="true"
+        app:bootstrapSize="xl"
+        android:layout_marginTop="40dp"
+        android:layout_below="@+id/email_field"/>
+
+    <com.beardedhen.androidbootstrap.BootstrapButton
+        android:id="@+id/button_register"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginLeft="200dp"
+        android:layout_marginRight="200dp"
+        android:text="@string/register"
+        app:bootstrapBrand="success"
+        app:buttonMode="regular"
+        app:roundedCorners="true"
+        app:bootstrapSize="xl"
+        android:layout_below="@+id/password_field_register"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="65dp"/>
+
+</RelativeLayout>
+

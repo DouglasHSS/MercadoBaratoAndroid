@@ -57,4 +57,6 @@
     <string name="max_distance_to_supermarkets">Max distance to supermarkets</string>
     <string name="product_not_found">Product not found</string>
     <string name="product_was_added">Product was added to shopping list</string>
+
+    <string name="register_screen_title">Register a new user</string>
 </resources>
