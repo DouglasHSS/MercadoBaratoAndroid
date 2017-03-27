@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_new_product"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1"
+    tools:context="com.br.cdr.mercadobarato.activity.SuperMarketCheckedInActivity">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.beardedhen.androidbootstrap.BootstrapButton
+            android:id="@+id/btn_scan_barcode"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="100dp"
+            android:layout_marginLeft="100dp"
+            android:text="@string/scan_barcode"
+            app:bootstrapBrand="success"
+            app:bootstrapSize="xl"
+            app:buttonMode="regular"
+            app:roundedCorners="true" />
+
+        <com.beardedhen.androidbootstrap.BootstrapEditText
+            android:id="@+id/market_name"
+            android:layout_width="match_parent"
+            android:layout_marginRight="50dp"
+            android:layout_marginLeft="50dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/btn_scan_barcode"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="40dp"
+            android:focusable="false"
+            app:bootstrapBrand="info"
+            app:bootstrapSize="xl"
+            app:roundedCorners="true" />
+
+        <com.beardedhen.androidbootstrap.BootstrapEditText
+            android:id="@+id/edit_product_code"
+            android:layout_width="match_parent"
+            android:layout_marginRight="50dp"
+            android:layout_marginLeft="50dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/market_name"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="20dp"
+            android:focusable="false"
+            android:hint="@string/product_code"
+            app:bootstrapBrand="info"
+            app:bootstrapSize="xl"
+            app:roundedCorners="true" />
+
+
+
+        <com.beardedhen.androidbootstrap.BootstrapEditText
+            android:id="@+id/edit_product_price"
+            android:layout_width="match_parent"
+            android:layout_marginRight="50dp"
+            android:layout_marginLeft="50dp"
+            android:layout_height="50dp"
+            android:layout_below="@id/edit_product_code"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="20dp"
+            android:hint="@string/product_price"
+            app:bootstrapBrand="info"
+            app:bootstrapSize="xl"
+            app:roundedCorners="true" />
+
+        <com.beardedhen.androidbootstrap.BootstrapEditText
+            android:id="@+id/edit_product_description"
+            android:layout_width="match_parent"
+            android:layout_marginRight="50dp"
+            android:layout_marginLeft="50dp"
+            android:layout_height="200dp"
+            android:layout_below="@id/edit_product_price"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="20dp"
+            android:hint="@string/product_description"
+            app:bootstrapBrand="info"
+            app:bootstrapSize="xl"
+            app:roundedCorners="true" />
+
+
+        <com.beardedhen.androidbootstrap.BootstrapButton
+            android:id="@+id/btn_save_product"
+            android:layout_width="178dp"
+            android:layout_height="75dp"
+            android:layout_alignEnd="@id/edit_product_description"
+            android:layout_below="@id/edit_product_description"
+            android:layout_marginTop="40dp"
+            android:text="@string/save_product"
+            app:bootstrapBrand="primary"
+            app:bootstrapSize="xl"
+            app:buttonMode="regular"
+            app:roundedCorners="true"
+            android:layout_alignStart="@+id/edit_product_description" />
+    </RelativeLayout>
+</LinearLayout>
