@@ -17,14 +17,14 @@
         <com.beardedhen.androidbootstrap.BootstrapButton
             android:id="@+id/btn_scan_barcode"
             android:layout_width="match_parent"
-            android:layout_height="46dp"
+            android:layout_height="75dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="15dp"
             android:text="@string/scan_barcode"
             android:layout_marginRight="100dp"
             android:layout_marginLeft="100dp"
             app:bootstrapBrand="success"
-            app:bootstrapSize="lg"
+            app:bootstrapSize="xl"
             app:buttonMode="regular"
             app:roundedCorners="true" />
 
@@ -65,14 +65,14 @@
         <com.beardedhen.androidbootstrap.BootstrapButton
             android:id="@+id/btn_save_product"
             android:layout_width="178dp"
-            android:layout_height="70dp"
+            android:layout_height="75dp"
             android:layout_alignEnd="@id/edit_product_description"
             android:layout_alignStart="@+id/edit_product_description"
             android:layout_below="@id/edit_product_description"
             android:layout_marginTop="40dp"
             android:text="@string/add_product_cart"
             app:bootstrapBrand="primary"
-            app:bootstrapSize="lg"
+            app:bootstrapSize="xl"
             app:buttonMode="regular"
             app:roundedCorners="true" />
     </RelativeLayout>
