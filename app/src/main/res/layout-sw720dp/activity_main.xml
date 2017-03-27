@@ -23,12 +23,10 @@
         <com.beardedhen.androidbootstrap.BootstrapEditText
             android:id="@+id/login_field"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="20dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="70dp"
+            android:layout_height="65dp"
+            android:layout_marginLeft="150dp"
+            android:layout_marginRight="150dp"
+            android:layout_marginTop="200dp"
             android:hint="@string/login"
             android:inputType="textPersonName"
             app:bootstrapBrand="info"
@@ -38,12 +36,12 @@
         <com.beardedhen.androidbootstrap.BootstrapEditText
             android:id="@+id/password_field"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="65dp"
             android:layout_below="@id/login_field"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginLeft="150dp"
+            android:layout_marginRight="150dp"
+            android:layout_marginTop="40dp"
             android:hint="@string/password"
             android:inputType="textWebPassword"
             app:bootstrapBrand="info"
@@ -55,12 +53,12 @@
 
         <com.beardedhen.androidbootstrap.BootstrapButton
             android:id="@+id/button_login"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
             android:layout_below="@+id/password_field"
-            android:layout_centerHorizontal="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginLeft="200dp"
+            android:layout_marginRight="200dp"
+            android:layout_marginTop="30dp"
             android:text="@string/login"
             android:textAlignment="center"
             app:bootstrapBrand="success"
@@ -72,11 +70,13 @@
 
         <com.beardedhen.androidbootstrap.BootstrapButton
             android:id="@+id/btn_signup"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
             android:layout_below="@+id/button_login"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
+            android:layout_marginLeft="200dp"
+            android:layout_marginRight="200dp"
+            android:layout_marginTop="30dp"
             android:padding="12dp"
             android:text="@string/sign_up"
             android:textAlignment="center"
@@ -88,15 +88,17 @@
 
         <com.facebook.login.widget.LoginButton
             android:id="@+id/loginButton"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
-            android:padding="12dp"
-            android:paddingBottom="20dp"
-            android:paddingTop="20dp"
-
             android:layout_below="@+id/btn_signup"
-            android:layout_centerHorizontal="true" />
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="200dp"
+            android:layout_marginRight="200dp"
+            android:paddingBottom="35dp"
+            android:paddingLeft="120dp"
+            android:paddingRight="100dp"
+            android:paddingTop="35dp"
+            />
 
         <ProgressBar
             android:id="@+id/progressBar"
