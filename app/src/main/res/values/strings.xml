@@ -32,6 +32,7 @@
     <string name="productsUpdateMessage">Please Help Us Addding new products or update products prices.</string>
     <string name="placesNotFound">No Super Market around you, please increase your range.</string>
 
+    <string name="deleted_item_list">Item removed from your list</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -57,5 +58,5 @@
     <string name="max_distance_to_supermarkets">Max distance to supermarkets</string>
     <string name="product_not_found">Product not found</string>
     <string name="product_was_added">Product was added to shopping list</string>
-    <string name="delete">Item removed from your list</string>
+    <string name="register_screen_title">Register a new user</string>
 </resources>
