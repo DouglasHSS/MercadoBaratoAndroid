@@ -4,7 +4,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.br.cdr.mercadobarato.R;
 import com.br.cdr.mercadobarato.model.Product;
@@ -21,6 +23,8 @@ public class MyProductItemRecyclerViewAdapter extends RecyclerView.Adapter<MyPro
 
     private final List<Product> mValues;
     private final OnListFragmentInteractionListener mListener;
+    private String message;
+
 
     public MyProductItemRecyclerViewAdapter(List<Product> items, OnListFragmentInteractionListener listener) {
         mValues = items;
@@ -34,13 +38,25 @@ public class MyProductItemRecyclerViewAdapter extends RecyclerView.Adapter<MyPro
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_productitem, parent, false);
         return new ViewHolder(view);
+
+
+
+
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).getBar_code());
+        //  holder.mIdView.setText(mValues.get(position).getBar_code());
         holder.mContentView.setText(mValues.get(position).getDescription());
+
+        holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                holder.mItem = mValues.get(position);
+                mValues.remove(position);
+                notifyItemRemoved(position); // notify the adapter about the removed item
+            }
+        });
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,7 +68,11 @@ public class MyProductItemRecyclerViewAdapter extends RecyclerView.Adapter<MyPro
                 }
             }
         });
+
+
+
     }
+
 
     @Override
     public int getItemCount() {
@@ -61,20 +81,26 @@ public class MyProductItemRecyclerViewAdapter extends RecyclerView.Adapter<MyPro
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
         public final TextView mContentView;
+        public final Button mDeleteButton;
         public Product mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.id);
+            // mIdView = (TextView) view.findViewById(R.id.id);
             mContentView = (TextView) view.findViewById(R.id.content);
+            mDeleteButton = (Button) view.findViewById(R.id.delete_btn);
         }
 
         @Override
         public String toString() {
             return super.toString() + " '" + mContentView.getText() + "'";
         }
+
+
+
     }
+
+
 }
